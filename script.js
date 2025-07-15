@@ -139,6 +139,7 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Current filter state
 let currentFilter = 'all';
+let selectedEvidence = null;
 let filteredGhosts = [...ghosts];
 
 // Initialize the page
@@ -156,6 +157,14 @@ function setupEventListeners() {
             const filter = button.dataset.filter;
             setActiveFilter(filter);
             applyFilters();
+        });
+    });
+    
+    // Add evidence click listeners
+    document.querySelectorAll('.evidence-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const evidence = item.dataset.evidence;
+            toggleEvidenceFilter(evidence, item);
         });
     });
 }
@@ -184,6 +193,11 @@ function applyFilters(searchTerm = '') {
         
         if (!matchesSearch) return false;
         
+        // Check evidence filter
+        if (selectedEvidence && !ghost.evidence.includes(selectedEvidence)) {
+            return false;
+        }
+        
         switch (currentFilter) {
             case 'evidence':
                 return ghost.evidence.length >= 3;
@@ -195,6 +209,26 @@ function applyFilters(searchTerm = '') {
     });
     
     renderGhosts();
+}
+
+// Toggle evidence filter
+function toggleEvidenceFilter(evidence, element) {
+    if (selectedEvidence === evidence) {
+        // Deselect if already selected
+        selectedEvidence = null;
+        element.classList.remove('active');
+    } else {
+        // Select new evidence
+        selectedEvidence = evidence;
+        // Remove active class from all evidence items
+        document.querySelectorAll('.evidence-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        // Add active class to clicked item
+        element.classList.add('active');
+    }
+    
+    applyFilters();
 }
 
 // Render ghost cards
