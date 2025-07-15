@@ -382,6 +382,48 @@ function applyFilters(searchTerm = '') {
         }
         
         switch (currentFilter) {
+            case 'fast':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('increases speed') || 
+                    behavior.toLowerCase().includes('increased speed')
+                );
+            case 'slow':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('decreases speed') || 
+                    behavior.toLowerCase().includes('decreased speed') ||
+                    behavior.toLowerCase().includes('reduces speed')
+                );
+            case 'light-manipulators':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('turns off lights') ||
+                    behavior.toLowerCase().includes('turns on lights') ||
+                    behavior.toLowerCase().includes('never turns on lights')
+                );
+            case 'electronic':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('turns off radios') ||
+                    behavior.toLowerCase().includes('turns on radios') ||
+                    behavior.toLowerCase().includes('can not turn flxpod off')
+                );
+            case 'door-closers':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('never closes doors')
+                );
+            case 'candle-blowers':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('blows out candles')
+                );
+            case 'high-los':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('increased line of sight') ||
+                    behavior.toLowerCase().includes('larger line of sight') ||
+                    behavior.toLowerCase().includes('substantially increased line of sight')
+                );
+            case 'weak-holy-water':
+                return ghost.behaviors.some(behavior => 
+                    behavior.toLowerCase().includes('holy water stops hunting') ||
+                    behavior.toLowerCase().includes('less effective holy water')
+                );
             default:
                 return true;
         }
