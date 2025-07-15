@@ -258,7 +258,8 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Current filter state
 let currentFilter = 'all';
-let selectedEvidence = null;
+let selectedSpeed = 'all';
+let selectedEvidence = [];
 let filteredGhosts = [...ghosts];
 
 // Initialize the page
@@ -279,11 +280,34 @@ function setupEventListeners() {
         });
     });
     
-    // Add evidence click listeners
-    document.querySelectorAll('.evidence-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const evidence = item.dataset.evidence;
-            toggleEvidenceFilter(evidence, item);
+    // Add tab listeners
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const tab = button.dataset.tab;
+            switchTab(tab);
+        });
+    });
+    
+    // Add speed filter listeners
+    document.querySelectorAll('input[name="speed"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            selectedSpeed = radio.value;
+            applyFilters();
+        });
+    });
+    
+    // Add evidence checkbox listeners
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const evidence = checkbox.value;
+            if (checkbox.checked) {
+                if (!selectedEvidence.includes(evidence)) {
+                    selectedEvidence.push(evidence);
+                }
+            } else {
+                selectedEvidence = selectedEvidence.filter(e => e !== evidence);
+            }
+            applyFilters();
         });
     });
 }
@@ -312,14 +336,39 @@ function applyFilters(searchTerm = '') {
         
         if (!matchesSearch) return false;
         
-        // Check evidence filter
-        if (selectedEvidence && !ghost.evidence.includes(selectedEvidence)) {
-            return false;
+        // Check evidence filters
+        if (selectedEvidence.length > 0) {
+            const hasAllSelectedEvidence = selectedEvidence.every(evidence => 
+                ghost.evidence.includes(evidence)
+            );
+            if (!hasAllSelectedEvidence) {
+                return false;
+            }
+        }
+        
+        // Check speed filter
+        if (selectedSpeed !== 'all') {
+            const speedBehaviors = ghost.behaviors.join(' ').toLowerCase();
+            switch (selectedSpeed) {
+                case 'normal':
+                    if (!speedBehaviors.includes('normal speed') && !speedBehaviors.includes('normal line of sight')) {
+                        return false;
+                    }
+                    break;
+                case 'increased':
+                    if (!speedBehaviors.includes('increases speed') && !speedBehaviors.includes('increased speed')) {
+                        return false;
+                    }
+                    break;
+                case 'decreased':
+                    if (!speedBehaviors.includes('decreases speed') && !speedBehaviors.includes('decreased speed') && !speedBehaviors.includes('reduces speed')) {
+                        return false;
+                    }
+                    break;
+            }
         }
         
         switch (currentFilter) {
-            case 'evidence':
-                return ghost.evidence.length >= 3;
             case 'difficulty':
                 return ghost.difficulty >= 4;
             default:
@@ -330,15 +379,15 @@ function applyFilters(searchTerm = '') {
     renderGhosts();
 }
 
-// Toggle evidence filter
+// Toggle evidence filter (for bottom section)
 function toggleEvidenceFilter(evidence, element) {
-    if (selectedEvidence === evidence) {
+    if (selectedEvidence.includes(evidence)) {
         // Deselect if already selected
-        selectedEvidence = null;
+        selectedEvidence = selectedEvidence.filter(e => e !== evidence);
         element.classList.remove('active');
     } else {
         // Select new evidence
-        selectedEvidence = evidence;
+        selectedEvidence.push(evidence);
         // Remove active class from all evidence items
         document.querySelectorAll('.evidence-item').forEach(item => {
             item.classList.remove('active');
@@ -376,6 +425,7 @@ function createGhostCard(ghost) {
     card.className = 'ghost-card';
     
     const difficultyStars = '★'.repeat(ghost.difficulty) + '☆'.repeat(5 - ghost.difficulty);
+    const speedInfo = getSpeedInfo(ghost);
     
     card.innerHTML = `
         <div class="ghost-name">${ghost.name}</div>
@@ -397,6 +447,13 @@ function createGhostCard(ghost) {
             ).join('')}
         </div>
         
+        <div class="speed-indicator">
+            <div class="speed-label">Speed: ${speedInfo.label}</div>
+            <div class="speed-bar">
+                <div class="speed-fill" style="width: ${speedInfo.percentage}%"></div>
+            </div>
+        </div>
+        
         <div class="difficulty">
             <span>Difficulty:</span>
             <span class="difficulty-stars">${difficultyStars}</span>
@@ -404,6 +461,38 @@ function createGhostCard(ghost) {
     `;
     
     return card;
+}
+
+// Get speed information for ghost
+function getSpeedInfo(ghost) {
+    const behaviors = ghost.behaviors.join(' ').toLowerCase();
+    
+    if (behaviors.includes('increases speed drastically')) {
+        return { label: 'Very Fast', percentage: 100 };
+    } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
+        return { label: 'Fast', percentage: 75 };
+    } else if (behaviors.includes('reduces speed') || behaviors.includes('decreases speed') || behaviors.includes('decreased speed')) {
+        return { label: 'Slow', percentage: 25 };
+    } else if (behaviors.includes('normal speed') || behaviors.includes('normal line of sight')) {
+        return { label: 'Normal', percentage: 50 };
+    } else {
+        return { label: 'Normal', percentage: 50 };
+    }
+}
+
+// Switch between tabs
+function switchTab(tabName) {
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    
+    // Update tab content
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(`${tabName}-tab`).classList.add('active');
 }
 
 // Add some interactive features
