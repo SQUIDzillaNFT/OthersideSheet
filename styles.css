@@ -367,13 +367,197 @@ header h1::before {
 }
 
 .evidence-tag {
-    background: rgba(255, 107, 107, 0.2);
-    color: #ff6b6b;
     padding: 3px 8px;
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: 500;
-    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Color-coded evidence types */
+.evidence-tag.emf {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.evidence-tag.audio {
+    background: rgba(33, 150, 243, 0.2);
+    color: #2196f3;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.evidence-tag.uv {
+    background: rgba(156, 39, 176, 0.2);
+    color: #9c27b0;
+    border: 1px solid rgba(156, 39, 176, 0.3);
+}
+
+.evidence-tag.writing {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.evidence-tag.freezing {
+    background: rgba(0, 188, 212, 0.2);
+    color: #00bcd4;
+    border: 1px solid rgba(0, 188, 212, 0.3);
+}
+
+.evidence-tag.radiation {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Color-coded evidence filter options */
+.evidence-emf .checkmark {
+    border-color: #4caf50;
+}
+
+.evidence-emf input:checked + .checkmark {
+    background: #4caf50;
+    border-color: #4caf50;
+}
+
+.evidence-audio .checkmark {
+    border-color: #2196f3;
+}
+
+.evidence-audio input:checked + .checkmark {
+    background: #2196f3;
+    border-color: #2196f3;
+}
+
+.evidence-uv .checkmark {
+    border-color: #9c27b0;
+}
+
+.evidence-uv input:checked + .checkmark {
+    background: #9c27b0;
+    border-color: #9c27b0;
+}
+
+.evidence-writing .checkmark {
+    border-color: #ff9800;
+}
+
+.evidence-writing input:checked + .checkmark {
+    background: #ff9800;
+    border-color: #ff9800;
+}
+
+.evidence-freezing .checkmark {
+    border-color: #00bcd4;
+}
+
+.evidence-freezing input:checked + .checkmark {
+    background: #00bcd4;
+    border-color: #00bcd4;
+}
+
+.evidence-radiation .checkmark {
+    border-color: #ffc107;
+}
+
+.evidence-radiation input:checked + .checkmark {
+    background: #ffc107;
+    border-color: #ffc107;
+}
+
+/* Color-coded info items */
+.info-item.evidence-emf h4 {
+    color: #4caf50;
+}
+
+.info-item.evidence-audio h4 {
+    color: #2196f3;
+}
+
+.info-item.evidence-uv h4 {
+    color: #9c27b0;
+}
+
+.info-item.evidence-writing h4 {
+    color: #ff9800;
+}
+
+.info-item.evidence-freezing h4 {
+    color: #00bcd4;
+}
+
+.info-item.evidence-radiation h4 {
+    color: #ffc107;
+}
+
+/* Official Links Section */
+.official-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.official-link {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.official-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(78, 205, 196, 0.3);
+    transform: translateY(-2px);
+}
+
+.link-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    width: 24px;
+    text-align: center;
+}
+
+.link-content h4 {
+    color: #4ecdc4;
+    margin: 0 0 4px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.link-content p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #b0b0b0;
+}
+
+.discord-link:hover {
+    border-color: rgba(114, 137, 218, 0.5);
+    box-shadow: 0 0 10px rgba(114, 137, 218, 0.2);
+}
+
+.steam-link:hover {
+    border-color: rgba(27, 40, 56, 0.5);
+    box-shadow: 0 0 10px rgba(27, 40, 56, 0.2);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer p {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: 300;
 }
 
 .behaviors {

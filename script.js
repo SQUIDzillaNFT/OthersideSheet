@@ -517,9 +517,10 @@ function createGhostCard(ghost) {
         <div class="evidence-list">
             <h4>Evidence</h4>
             <div class="evidence-items">
-                ${ghost.evidence.map(evidence => 
-                    `<span class="evidence-tag">${evidence}</span>`
-                ).join('')}
+                ${ghost.evidence.map(evidence => {
+                    const evidenceClass = evidence.toLowerCase().replace(/\s+/g, '-');
+                    return `<span class="evidence-tag ${evidenceClass}">${evidence}</span>`;
+                }).join('')}
             </div>
         </div>
         
