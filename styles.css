@@ -416,6 +416,8 @@ header h1::before {
     border: 1px solid rgba(255, 193, 7, 0.3) !important;
 }
 
+
+
 /* Color-coded evidence filter options */
 .evidence-emf .checkmark {
     border-color: #4caf50;
@@ -521,6 +523,11 @@ header h1::before {
     transform: translateY(-2px);
 }
 
+.official-links a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .link-icon {
     font-size: 1.5rem;
     margin-right: 12px;
@@ -529,10 +536,11 @@ header h1::before {
 }
 
 .link-content h4 {
-    color: #4ecdc4;
+    color: #fff;
     margin: 0 0 4px 0;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 .link-content p {
@@ -558,9 +566,8 @@ header h1::before {
     margin-top: 40px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     width: 100%;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .footer p {
