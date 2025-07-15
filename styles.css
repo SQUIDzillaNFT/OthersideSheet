@@ -350,17 +350,7 @@ header h1 {
     font-size: 0.9rem;
 }
 
-.difficulty {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: #a0a0a0;
-}
 
-.difficulty-stars {
-    color: #ffd700;
-}
 
 .speed-indicator {
     margin-top: 15px;

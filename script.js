@@ -9,7 +9,6 @@ const ghosts = [
             "Normal speed during hunts",
             "Normal line of sight behavior"
         ],
-        difficulty: 4,
         category: "aggressive"
     },
     {
@@ -21,7 +20,6 @@ const ghosts = [
             "Normal speed during hunts",
             "Normal line of sight behavior"
         ],
-        difficulty: 3,
         category: "auditory"
     },
     {
@@ -36,7 +34,6 @@ const ghosts = [
             "Holy water stops hunting for two minutes",
             "Decreased line of sight"
         ],
-        difficulty: 5,
         category: "demonic"
     },
     {
@@ -50,7 +47,6 @@ const ghosts = [
             "Increased speed until near target, then reduces to normal",
             "Normal line of sight"
         ],
-        difficulty: 3,
         category: "protective"
     },
     {
@@ -64,7 +60,6 @@ const ghosts = [
             "Reduces speed during hunt",
             "Substantially increased line of sight"
         ],
-        difficulty: 4,
         category: "malevolent"
     },
     {
@@ -77,7 +72,6 @@ const ghosts = [
             "Normal speed during hunts",
             "Normal line of sight behavior"
         ],
-        difficulty: 3,
         category: "vengeful"
     },
     {
@@ -93,7 +87,6 @@ const ghosts = [
             "Increases/decreases with light",
             "Increases speed slightly"
         ],
-        difficulty: 4,
         category: "darkness"
     },
     {
@@ -107,7 +100,6 @@ const ghosts = [
             "Less effective holy water",
             "Increases speed slightly"
         ],
-        difficulty: 3,
         category: "aggressive"
     },
     {
@@ -119,7 +111,6 @@ const ghosts = [
             "Normal line of sight",
             "Increases speed slightly"
         ],
-        difficulty: 4,
         category: "mystical"
     },
     {
@@ -133,7 +124,6 @@ const ghosts = [
             "Less effective holy water",
             "Increases speed"
         ],
-        difficulty: 5,
         category: "violent"
     },
     {
@@ -147,7 +137,6 @@ const ghosts = [
             "Normal line of sight",
             "Normal speed"
         ],
-        difficulty: 3,
         category: "shadow"
     },
     {
@@ -159,7 +148,6 @@ const ghosts = [
             "Normal line of sight",
             "Increases speed slightly"
         ],
-        difficulty: 2,
         category: "mischievous"
     },
     {
@@ -173,7 +161,6 @@ const ghosts = [
             "Normal line of sight",
             "Increases speed slightly"
         ],
-        difficulty: 3,
         category: "undead"
     },
     {
@@ -187,7 +174,6 @@ const ghosts = [
             "Holy water stops hunting for two minutes",
             "Increases speed slightly"
         ],
-        difficulty: 3,
         category: "malevolent"
     },
     {
@@ -202,7 +188,6 @@ const ghosts = [
             "Normal line of sight",
             "Normal speed"
         ],
-        difficulty: 2,
         category: "residual"
     },
     {
@@ -217,7 +202,6 @@ const ghosts = [
             "Normal line of sight",
             "Increases speed slightly"
         ],
-        difficulty: 5,
         category: "elusive"
     },
     {
@@ -229,7 +213,6 @@ const ghosts = [
             "Shorter distance line of sight",
             "Normal speed"
         ],
-        difficulty: 4,
         category: "deceptive"
     },
     {
@@ -246,7 +229,6 @@ const ghosts = [
             "Room the ghost is in gets cold moments before hunting",
             "Can not turn FLXPod off"
         ],
-        difficulty: 5,
         category: "vengeful"
     }
 ];
@@ -369,8 +351,6 @@ function applyFilters(searchTerm = '') {
         }
         
         switch (currentFilter) {
-            case 'difficulty':
-                return ghost.difficulty >= 4;
             default:
                 return true;
         }
@@ -424,7 +404,6 @@ function createGhostCard(ghost) {
     const card = document.createElement('div');
     card.className = 'ghost-card';
     
-    const difficultyStars = '★'.repeat(ghost.difficulty) + '☆'.repeat(5 - ghost.difficulty);
     const speedInfo = getSpeedInfo(ghost);
     
     card.innerHTML = `
@@ -452,11 +431,6 @@ function createGhostCard(ghost) {
             <div class="speed-bar">
                 <div class="speed-fill" style="width: ${speedInfo.percentage}%"></div>
             </div>
-        </div>
-        
-        <div class="difficulty">
-            <span>Difficulty:</span>
-            <span class="difficulty-stars">${difficultyStars}</span>
         </div>
     `;
     
