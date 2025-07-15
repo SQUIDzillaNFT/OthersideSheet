@@ -88,10 +88,31 @@ header h1 {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     backdrop-filter: blur(10px);
-    height: fit-content;
+    max-height: 80vh;
     position: sticky;
     top: 20px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(78, 205, 196, 0.3);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 205, 196, 0.5);
 }
 
 .sidebar-tabs {
