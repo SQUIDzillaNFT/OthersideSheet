@@ -1,134 +1,253 @@
 // Ghost data for The Otherside
 const ghosts = [
     {
-        name: "Shadow Phantom",
-        description: "A dark entity that thrives in shadows and darkness. Extremely aggressive when exposed to light.",
-        evidence: ["EMF Level 5", "Spirit Box", "Ghost Orbs"],
+        name: "Revenant",
+        description: "Known to be a powerful active spirit, with reports that being haunted by one feels like literal suffocation. Stamina drains faster when targeted.",
+        evidence: ["EMF", "Radiation", "Writing"],
         behaviors: [
-            "Becomes more aggressive in dark areas",
-            "Will actively avoid bright lights",
-            "Can phase through walls when in shadow form",
-            "Hunts more frequently during night hours"
+            "Stamina drains faster when targeted",
+            "Normal speed during hunts",
+            "Normal line of sight behavior"
         ],
         difficulty: 4,
         category: "aggressive"
     },
     {
-        name: "Echo Spirit",
-        description: "A ghost that mimics sounds and voices. Can perfectly replicate any audio it hears.",
-        evidence: ["Spirit Box", "Ghost Writing", "Freezing Temperatures"],
+        name: "Banshee",
+        description: "Known for its high pitched screams, electrical interferences, and being close to those who have a close relationship with death.",
+        evidence: ["Audio", "Radiation", "EMF"],
         behaviors: [
-            "Mimics player voices and sounds",
-            "Creates false audio cues to mislead investigators",
-            "Becomes more active when players are talking",
-            "Can create multiple simultaneous sounds"
+            "Player can hear screams from Spirit box or Spirit boom box",
+            "Normal speed during hunts",
+            "Normal line of sight behavior"
         ],
         difficulty: 3,
+        category: "auditory"
+    },
+    {
+        name: "Demon",
+        description: "Malevolent entity associated with evil, and harm. There is no mistaking the demon, as its intentions are negative, and it seeks to harm humans.",
+        evidence: ["Writing", "UV", "Radiation"],
+        behaviors: [
+            "Hunts as soon as 90 BPM",
+            "Shorter hunt cooldown",
+            "Leaves hot temps on touched objects",
+            "Increased efficiency",
+            "Holy water stops hunting for two minutes",
+            "Decreased line of sight"
+        ],
+        difficulty: 5,
+        category: "demonic"
+    },
+    {
+        name: "Skia",
+        description: "The Skia, often called 'Spirit' or 'tutelary deities' are known to protect their families, homes, or places of interest. They do not want to harm humans, but will if they feel threatened.",
+        evidence: ["Audio", "EMF", "UV"],
+        behaviors: [
+            "Unique Spirit Box responses",
+            "Increased hunt cooldown",
+            "Distressed sounds near player during hunt",
+            "Increased speed until near target, then reduces to normal",
+            "Normal line of sight"
+        ],
+        difficulty: 3,
+        category: "protective"
+    },
+    {
+        name: "Wraith",
+        description: "An incredibly fast harbinger of death, the Wraith is a furious, malevolent spirit, born of hatred and sorrow.",
+        evidence: ["Audio", "Freezing", "UV"],
+        behaviors: [
+            "Targets specific player",
+            "Breaks line of sight easily",
+            "No feet when hunting",
+            "Reduces speed during hunt",
+            "Substantially increased line of sight"
+        ],
+        difficulty: 4,
+        category: "malevolent"
+    },
+    {
+        name: "Bhoot",
+        description: "Unable to find peace in the afterlife, the Bhoot haunt the grounds which they've been wronged seeking revenge.",
+        evidence: ["Freezing", "Radiation", "Writing"],
+        behaviors: [
+            "Increased hunt cooldown",
+            "Room the ghost is in gets cold moments before hunting",
+            "Normal speed during hunts",
+            "Normal line of sight behavior"
+        ],
+        difficulty: 3,
+        category: "vengeful"
+    },
+    {
+        name: "Tariaksuq",
+        description: "Representing darkness, death, and the unseen existence, the Tariaksuq lurks often unseen. Favoring the dark, frequent light trippings are reported with these beings.",
+        evidence: ["Audio", "EMF", "Freezing"],
+        behaviors: [
+            "Blows out candles more frequently than other ghosts",
+            "Turns off lights more frequently",
+            "Never turns on lights",
+            "Will only appear in full form during a hunt",
+            "Holy water stops hunting for 90 seconds",
+            "Increases/decreases with light",
+            "Increases speed slightly"
+        ],
+        difficulty: 4,
+        category: "darkness"
+    },
+    {
+        name: "Tantalus",
+        description: "Known to be aggressive, the Tantalus is considered to be close to those who have witnessed or experienced death.",
+        evidence: ["Freezing", "UV", "EMF"],
+        behaviors: [
+            "Never closes doors",
+            "Never slams doors (except during a hunt)",
+            "Can not turn FLXPod off",
+            "Less effective holy water",
+            "Increases speed slightly"
+        ],
+        difficulty: 3,
+        category: "aggressive"
+    },
+    {
+        name: "Iblis",
+        description: "Known to possess abilities like shape-shifting and invisibility, the Iblis is neither good nor evil, but free moral agency. Associated with magic, they are powerful and mysterious beings.",
+        evidence: ["Audio", "Freezing", "Writing"],
+        behaviors: [
+            "Shapeshifts during hunts",
+            "Normal line of sight",
+            "Increases speed slightly"
+        ],
+        difficulty: 4,
+        category: "mystical"
+    },
+    {
+        name: "Shura",
+        description: "Consumed by wrath, and an insatiable thirst for violence, they are stuck on Earth because of a curse that keeps them from entering Hell or the underworld.",
+        evidence: ["EMF", "Writing", "Freezing"],
+        behaviors: [
+            "Shorter cooldown",
+            "Larger line of sight range",
+            "Harder to break line of sight",
+            "Less effective holy water",
+            "Increases speed"
+        ],
+        difficulty: 5,
+        category: "violent"
+    },
+    {
+        name: "Phantom",
+        description: "Known to be powerful malevolent beings of darkness, created by darkness itself, Phantoms are hard to see, and keep a low profile until they're ready to strike fear into their target.",
+        evidence: ["Audio", "EMF", "UV"],
+        behaviors: [
+            "Harder to see",
+            "Can not be seen by night vision",
+            "Can not be seen by FLXPod",
+            "Normal line of sight",
+            "Normal speed"
+        ],
+        difficulty: 3,
+        category: "shadow"
+    },
+    {
+        name: "Poltergeist",
+        description: "A mischievous spirit, they're believed to be responsible for causing disruptive phenomena - throwing objects, interfering with electronics, and unexplained noises.",
+        evidence: ["UV", "EMF", "Writing"],
+        behaviors: [
+            "Throws more objects than normal ghosts",
+            "Normal line of sight",
+            "Increases speed slightly"
+        ],
+        difficulty: 2,
+        category: "mischievous"
+    },
+    {
+        name: "Strigoi",
+        description: "Often depicted as troubled spirits or living dead that can rise from the grave, typically at night.",
+        evidence: ["UV", "Freezing", "Writing"],
+        behaviors: [
+            "Actively raises heart rate when in the room with the ghost",
+            "Shadow events only",
+            "Turns on radios, never off",
+            "Normal line of sight",
+            "Increases speed slightly"
+        ],
+        difficulty: 3,
+        category: "undead"
+    },
+    {
+        name: "Wisp",
+        description: "Portrayed as malevolent, leading travelers to harm or death. Often associated with the visibility of ghost orbs.",
+        evidence: ["Audio", "Radiation", "Freezing"],
+        behaviors: [
+            "Turns on lights significantly more than other ghosts",
+            "Never turns off lights",
+            "Increased efficiency",
+            "Holy water stops hunting for two minutes",
+            "Increases speed slightly"
+        ],
+        difficulty: 3,
+        category: "malevolent"
+    },
+    {
+        name: "The Echo",
+        description: "A passive, residual spirit that is felt through memory more than presence - quiet, elusive, and hard to track.",
+        evidence: ["Radiation", "Freezing", "UV"],
+        behaviors: [
+            "Can't interact with main breaker, only individual breakers (except post hunt)",
+            "Can't turn on or off lights",
+            "Can't turn on or off radios",
+            "Can not turn FLXPod off",
+            "Normal line of sight",
+            "Normal speed"
+        ],
+        difficulty: 2,
+        category: "residual"
+    },
+    {
+        name: "The Forgotten",
+        description: "Delayed messages, and barely interacts. The hardest ghost to identify with No Evidence.",
+        evidence: ["EMF", "Radiation", "UV"],
+        behaviors: [
+            "Delayed messages",
+            "Barely interacts",
+            "Hardest ghost to identify",
+            "Can not turn FLXPod off",
+            "Normal line of sight",
+            "Increases speed slightly"
+        ],
+        difficulty: 5,
+        category: "elusive"
+    },
+    {
+        name: "Doppelganger",
+        description: "A deceptive spirit that takes on the persona of a person, often to trick its intended targets.",
+        evidence: ["Audio", "Writing", "UV"],
+        behaviors: [
+            "Returns to favorite room before hunting",
+            "Shorter distance line of sight",
+            "Normal speed"
+        ],
+        difficulty: 4,
         category: "deceptive"
     },
     {
-        name: "Corrupted Entity",
-        description: "A malevolent spirit corrupted by negative energy. Extremely dangerous and unpredictable.",
-        evidence: ["EMF Level 5", "Fingerprints", "Freezing Temperatures"],
+        name: "Wewe Gombel",
+        description: "Historically known for being a vengeful ghost, Gombel is known for being malicious and unforgiving.",
+        evidence: ["Radiation", "EMF", "Freezing"],
         behaviors: [
-            "Randomly changes behavior patterns",
-            "Can corrupt electronic equipment",
-            "Becomes stronger when players are afraid",
-            "May ignore traditional ghost hunting rules"
+            "Turns off lights only",
+            "Short cooldown",
+            "Can't interact with main breaker, only individual breakers (except post hunt)",
+            "Increased efficiency",
+            "Increases speed drastically",
+            "Player can hear screams from Spirit box or Spirit boom box",
+            "Room the ghost is in gets cold moments before hunting",
+            "Can not turn FLXPod off"
         ],
         difficulty: 5,
-        category: "corrupted"
-    },
-    {
-        name: "Memory Fragment",
-        description: "A ghost that exists as fragments of memories. Can manipulate time and reality perception.",
-        evidence: ["Ghost Writing", "Ghost Orbs", "Spirit Box"],
-        behaviors: [
-            "Can create time loops or distorted reality",
-            "Manipulates player memories and perceptions",
-            "Becomes stronger when players are confused",
-            "May appear in multiple locations simultaneously"
-        ],
-        difficulty: 4,
-        category: "reality"
-    },
-    {
-        name: "Void Walker",
-        description: "A ghost that can create portals and move between dimensions. Extremely rare and dangerous.",
-        evidence: ["EMF Level 5", "Fingerprints", "Ghost Orbs"],
-        behaviors: [
-            "Can teleport between rooms instantly",
-            "Creates temporary dimensional rifts",
-            "May pull players into void spaces",
-            "Becomes more powerful in areas with high paranormal activity"
-        ],
-        difficulty: 5,
-        category: "dimensional"
-    },
-    {
-        name: "Spectral Mimic",
-        description: "A ghost that can take on the appearance of other entities or even players.",
-        evidence: ["Spirit Box", "Ghost Writing", "Freezing Temperatures"],
-        behaviors: [
-            "Can disguise itself as other ghost types",
-            "May appear as a player to confuse the team",
-            "Changes appearance based on player expectations",
-            "Becomes more deceptive when players are confident"
-        ],
-        difficulty: 4,
-        category: "deceptive"
-    },
-    {
-        name: "Resonance Ghost",
-        description: "A ghost that resonates with specific frequencies and emotions.",
-        evidence: ["EMF Level 5", "Spirit Box", "Fingerprints"],
-        behaviors: [
-            "Responds to specific sound frequencies",
-            "Becomes more active when players experience strong emotions",
-            "Can amplify or dampen sounds in the area",
-            "May create harmonic disturbances"
-        ],
-        difficulty: 3,
-        category: "resonant"
-    },
-    {
-        name: "Temporal Echo",
-        description: "A ghost that exists outside of normal time flow. Can manipulate time perception.",
-        evidence: ["Ghost Writing", "Freezing Temperatures", "Ghost Orbs"],
-        behaviors: [
-            "Can slow down or speed up time perception",
-            "May cause players to experience time loops",
-            "Becomes more active during specific time periods",
-            "Can create temporal anomalies"
-        ],
-        difficulty: 4,
-        category: "temporal"
-    },
-    {
-        name: "Quantum Phantom",
-        description: "A ghost that exists in multiple states simultaneously. Extremely unpredictable.",
-        evidence: ["EMF Level 5", "Ghost Writing", "Spirit Box"],
-        behaviors: [
-            "Can exist in multiple locations at once",
-            "May appear and disappear randomly",
-            "Behaves differently for different players",
-            "Can create quantum superposition effects"
-        ],
-        difficulty: 5,
-        category: "quantum"
-    },
-    {
-        name: "Emotional Specter",
-        description: "A ghost that feeds on and amplifies human emotions.",
-        evidence: ["Spirit Box", "Fingerprints", "Freezing Temperatures"],
-        behaviors: [
-            "Becomes stronger when players are emotional",
-            "Can induce specific emotions in players",
-            "May target the most emotional player",
-            "Creates emotional feedback loops"
-        ],
-        difficulty: 3,
-        category: "emotional"
+        category: "vengeful"
     }
 ];
 
