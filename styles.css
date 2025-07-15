@@ -374,40 +374,46 @@ header h1::before {
 }
 
 /* Color-coded evidence types */
-.evidence-tag.emf {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
+.evidence-tag.emf,
+.evidence-tag.EMF {
+    background: rgba(76, 175, 80, 0.2) !important;
+    color: #4caf50 !important;
+    border: 1px solid rgba(76, 175, 80, 0.3) !important;
 }
 
-.evidence-tag.audio {
-    background: rgba(33, 150, 243, 0.2);
-    color: #2196f3;
-    border: 1px solid rgba(33, 150, 243, 0.3);
+.evidence-tag.audio,
+.evidence-tag.Audio {
+    background: rgba(33, 150, 243, 0.2) !important;
+    color: #2196f3 !important;
+    border: 1px solid rgba(33, 150, 243, 0.3) !important;
 }
 
-.evidence-tag.uv {
-    background: rgba(156, 39, 176, 0.2);
-    color: #9c27b0;
-    border: 1px solid rgba(156, 39, 176, 0.3);
+.evidence-tag.uv,
+.evidence-tag.UV {
+    background: rgba(156, 39, 176, 0.2) !important;
+    color: #9c27b0 !important;
+    border: 1px solid rgba(156, 39, 176, 0.3) !important;
 }
 
-.evidence-tag.writing {
-    background: rgba(255, 152, 0, 0.2);
-    color: #ff9800;
-    border: 1px solid rgba(255, 152, 0, 0.3);
+.evidence-tag.writing,
+.evidence-tag.Writing {
+    background: rgba(255, 152, 0, 0.2) !important;
+    color: #ff9800 !important;
+    border: 1px solid rgba(255, 152, 0, 0.3) !important;
 }
 
-.evidence-tag.freezing {
-    background: rgba(0, 188, 212, 0.2);
-    color: #00bcd4;
-    border: 1px solid rgba(0, 188, 212, 0.3);
+.evidence-tag.freezing,
+.evidence-tag.Freezing {
+    background: rgba(0, 188, 212, 0.2) !important;
+    color: #00bcd4 !important;
+    border: 1px solid rgba(0, 188, 212, 0.3) !important;
 }
 
-.evidence-tag.radiation {
-    background: rgba(255, 193, 7, 0.2);
-    color: #ffc107;
-    border: 1px solid rgba(255, 193, 7, 0.3);
+.evidence-tag.radiation,
+.evidence-tag.Radiation {
+    background: rgba(255, 193, 7, 0.2) !important;
+    color: #ffc107 !important;
+    border: 1px solid rgba(255, 193, 7, 0.3) !important;
 }
 
 /* Color-coded evidence filter options */
@@ -551,6 +557,10 @@ header h1::before {
     padding: 20px;
     margin-top: 40px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .footer p {
