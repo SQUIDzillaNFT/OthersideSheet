@@ -405,6 +405,8 @@ function createGhostCard(ghost) {
     card.className = 'ghost-card';
     
     const speedInfo = getSpeedInfo(ghost);
+    const losInfo = getLOSInfo(ghost);
+    const holyWaterInfo = getHolyWaterInfo(ghost);
     
     card.innerHTML = `
         <div class="ghost-name">${ghost.name}</div>
@@ -426,10 +428,26 @@ function createGhostCard(ghost) {
             ).join('')}
         </div>
         
-        <div class="speed-indicator">
-            <div class="speed-label">Speed: ${speedInfo.label}</div>
-            <div class="speed-bar">
-                <div class="speed-fill" style="width: ${speedInfo.percentage}%"></div>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-label">Speed: ${speedInfo.label}</div>
+                <div class="stat-bar">
+                    <div class="stat-fill speed-fill" style="width: ${speedInfo.percentage}%"></div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-label">LOS: ${losInfo.label}</div>
+                <div class="stat-bar">
+                    <div class="stat-fill los-fill" style="width: ${losInfo.percentage}%"></div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-label">Holy Water: ${holyWaterInfo.label}</div>
+                <div class="stat-bar">
+                    <div class="stat-fill holy-water-fill" style="width: ${holyWaterInfo.percentage}%; background: ${holyWaterInfo.color}"></div>
+                </div>
             </div>
         </div>
     `;
@@ -451,6 +469,40 @@ function getSpeedInfo(ghost) {
         return { label: 'Normal', percentage: 50 };
     } else {
         return { label: 'Normal', percentage: 50 };
+    }
+}
+
+// Get LOS speed information for ghost
+function getLOSInfo(ghost) {
+    const behaviors = ghost.behaviors.join(' ').toLowerCase();
+    
+    if (behaviors.includes('substantially increased line of sight') || behaviors.includes('larger line of sight range')) {
+        return { label: 'Very High', percentage: 100 };
+    } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight')) {
+        return { label: 'High', percentage: 75 };
+    } else if (behaviors.includes('decreased line of sight') || behaviors.includes('shorter distance line of sight')) {
+        return { label: 'Low', percentage: 25 };
+    } else if (behaviors.includes('normal line of sight')) {
+        return { label: 'Normal', percentage: 50 };
+    } else {
+        return { label: 'Normal', percentage: 50 };
+    }
+}
+
+// Get Holy Water effectiveness for ghost
+function getHolyWaterInfo(ghost) {
+    const behaviors = ghost.behaviors.join(' ').toLowerCase();
+    
+    if (behaviors.includes('increased efficiency') || behaviors.includes('holy water stops hunting for two minutes')) {
+        return { label: 'Very Effective', percentage: 100, color: '#4ecdc4' };
+    } else if (behaviors.includes('holy water stops hunting for 90 seconds')) {
+        return { label: 'Effective', percentage: 75, color: '#45b7d1' };
+    } else if (behaviors.includes('less effective') || behaviors.includes('reduces speed during hunt')) {
+        return { label: 'Less Effective', percentage: 25, color: '#ff6b6b' };
+    } else if (behaviors.includes('normal')) {
+        return { label: 'Normal', percentage: 50, color: '#a0a0a0' };
+    } else {
+        return { label: 'Normal', percentage: 50, color: '#a0a0a0' };
     }
 }
 
