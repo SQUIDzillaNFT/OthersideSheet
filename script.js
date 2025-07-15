@@ -242,6 +242,7 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 let currentFilter = 'all';
 let selectedSpeed = 'all';
 let selectedEvidence = [];
+let selectedBehaviors = [];
 let filteredGhosts = [...ghosts];
 
 // Initialize the page
@@ -281,13 +282,32 @@ function setupEventListeners() {
     // Add evidence checkbox listeners
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            const evidence = checkbox.value;
-            if (checkbox.checked) {
-                if (!selectedEvidence.includes(evidence)) {
-                    selectedEvidence.push(evidence);
+            const value = checkbox.value;
+            
+            // Check if it's a behavior filter
+            const isBehavior = [
+                'turns off lights', 'turns on lights', 'never turns on lights',
+                'never closes doors', 'turns off radios', 'turns on radios',
+                'blows out candles', 'can not turn flxpod off'
+            ].includes(value);
+            
+            if (isBehavior) {
+                if (checkbox.checked) {
+                    if (!selectedBehaviors.includes(value)) {
+                        selectedBehaviors.push(value);
+                    }
+                } else {
+                    selectedBehaviors = selectedBehaviors.filter(b => b !== value);
                 }
             } else {
-                selectedEvidence = selectedEvidence.filter(e => e !== evidence);
+                // Evidence filter
+                if (checkbox.checked) {
+                    if (!selectedEvidence.includes(value)) {
+                        selectedEvidence.push(value);
+                    }
+                } else {
+                    selectedEvidence = selectedEvidence.filter(e => e !== value);
+                }
             }
             applyFilters();
         });
@@ -324,6 +344,17 @@ function applyFilters(searchTerm = '') {
                 ghost.evidence.includes(evidence)
             );
             if (!hasAllSelectedEvidence) {
+                return false;
+            }
+        }
+        
+        // Check behavior filters
+        if (selectedBehaviors.length > 0) {
+            const ghostBehaviors = ghost.behaviors.join(' ').toLowerCase();
+            const hasAllSelectedBehaviors = selectedBehaviors.every(behavior => 
+                ghostBehaviors.includes(behavior.toLowerCase())
+            );
+            if (!hasAllSelectedBehaviors) {
                 return false;
             }
         }
