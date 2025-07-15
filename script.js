@@ -240,6 +240,7 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Current filter state
 let currentFilter = 'all';
+let quickFilter = 'all';
 let selectedSpeed = 'all';
 let selectedEvidence = [];
 let selectedBehaviors = [];
@@ -255,10 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     searchInput.addEventListener('input', handleSearch);
     
-    filterButtons.forEach(button => {
+    // Handle quick filter buttons (separate from other filters)
+    document.querySelectorAll('.filter-btn').forEach(button => {
         button.addEventListener('click', () => {
             const filter = button.dataset.filter;
-            setActiveFilter(filter);
+            setQuickFilter(filter);
             applyFilters();
         });
     });
@@ -320,10 +322,10 @@ function handleSearch() {
     applyFilters(searchTerm);
 }
 
-// Set active filter button
-function setActiveFilter(filter) {
-    currentFilter = filter;
-    filterButtons.forEach(btn => btn.classList.remove('active'));
+// Set quick filter
+function setQuickFilter(filter) {
+    quickFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
 }
 
@@ -381,52 +383,79 @@ function applyFilters(searchTerm = '') {
             }
         }
         
-        switch (currentFilter) {
-            case 'fast':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('increases speed') || 
-                    behavior.toLowerCase().includes('increased speed')
-                );
-            case 'slow':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('decreases speed') || 
-                    behavior.toLowerCase().includes('decreased speed') ||
-                    behavior.toLowerCase().includes('reduces speed')
-                );
-            case 'light-manipulators':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('turns off lights') ||
-                    behavior.toLowerCase().includes('turns on lights') ||
-                    behavior.toLowerCase().includes('never turns on lights')
-                );
-            case 'electronic':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('turns off radios') ||
-                    behavior.toLowerCase().includes('turns on radios') ||
-                    behavior.toLowerCase().includes('can not turn flxpod off')
-                );
-            case 'door-closers':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('never closes doors')
-                );
-            case 'candle-blowers':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('blows out candles')
-                );
-            case 'high-los':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('increased line of sight') ||
-                    behavior.toLowerCase().includes('larger line of sight') ||
-                    behavior.toLowerCase().includes('substantially increased line of sight')
-                );
-            case 'weak-holy-water':
-                return ghost.behaviors.some(behavior => 
-                    behavior.toLowerCase().includes('holy water stops hunting') ||
-                    behavior.toLowerCase().includes('less effective holy water')
-                );
-            default:
-                return true;
+        // Check quick filter first (separate from other filters)
+        if (quickFilter !== 'all') {
+            switch (quickFilter) {
+                case 'fast':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('increases speed') || 
+                        behavior.toLowerCase().includes('increased speed')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'slow':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('decreases speed') || 
+                        behavior.toLowerCase().includes('decreased speed') ||
+                        behavior.toLowerCase().includes('reduces speed')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'light-manipulators':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('turns off lights') ||
+                        behavior.toLowerCase().includes('turns on lights') ||
+                        behavior.toLowerCase().includes('never turns on lights')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'electronic':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('turns off radios') ||
+                        behavior.toLowerCase().includes('turns on radios') ||
+                        behavior.toLowerCase().includes('can not turn flxpod off')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'door-closers':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('never closes doors')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'candle-blowers':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('blows out candles')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'high-los':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('increased line of sight') ||
+                        behavior.toLowerCase().includes('larger line of sight') ||
+                        behavior.toLowerCase().includes('substantially increased line of sight')
+                    )) {
+                        return false;
+                    }
+                    break;
+                case 'weak-holy-water':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('holy water stops hunting') ||
+                        behavior.toLowerCase().includes('less effective holy water')
+                    )) {
+                        return false;
+                    }
+                    break;
+            }
         }
+        
+        return true;
     });
     
     renderGhosts();
