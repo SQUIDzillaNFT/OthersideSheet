@@ -392,20 +392,6 @@ function applyFilters(searchTerm = '') {
                         return false;
                     }
                     break;
-                case 'door-closers':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('never closes doors')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'candle-blowers':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('blows out candles')
-                    )) {
-                        return false;
-                    }
-                    break;
                 case 'high-los':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('increased line of sight') ||
