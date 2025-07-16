@@ -366,8 +366,7 @@ function applyFilters(searchTerm = '') {
                     }
                     break;
                 case 'decreased':
-                    if (!losBehaviors.includes('decreased los') && 
-                        !losBehaviors.includes('shorter distance los')) {
+                    if (!losBehaviors.includes('decreased los')) {
                         return false;
                     }
                     break;
@@ -379,8 +378,7 @@ function applyFilters(searchTerm = '') {
             switch (quickFilter) {
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('decreased los') ||
-                        behavior.toLowerCase().includes('shorter distance los')
+                        behavior.toLowerCase().includes('decreased los')
                     )) {
                         return false;
                     }
@@ -390,15 +388,6 @@ function applyFilters(searchTerm = '') {
                         behavior.toLowerCase().includes('turns off lights') ||
                         behavior.toLowerCase().includes('turns on lights') ||
                         behavior.toLowerCase().includes('never turns on lights')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'electronic':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('turns off radios') ||
-                        behavior.toLowerCase().includes('turns on radios') ||
-                        behavior.toLowerCase().includes('can not turn flxpod off')
                     )) {
                         return false;
                     }
