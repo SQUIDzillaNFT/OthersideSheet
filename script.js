@@ -339,22 +339,35 @@ function applyFilters(searchTerm = '') {
             }
         }
         
-        // Check speed filter
+        // Check LOS filter
         if (selectedSpeed !== 'all') {
-            const speedBehaviors = ghost.behaviors.join(' ').toLowerCase();
+            const losBehaviors = ghost.behaviors.join(' ').toLowerCase();
             switch (selectedSpeed) {
                 case 'normal':
-                    if (!speedBehaviors.includes('normal speed') && !speedBehaviors.includes('normal line of sight')) {
+                    // Normal LOS - no speed-related behaviors
+                    if (losBehaviors.includes('increases speed') || 
+                        losBehaviors.includes('increased speed') ||
+                        losBehaviors.includes('increases speed slightly') ||
+                        losBehaviors.includes('increases speed drastically') ||
+                        losBehaviors.includes('substantially increased los') ||
+                        losBehaviors.includes('larger los range') ||
+                        losBehaviors.includes('decreased los')) {
                         return false;
                     }
                     break;
                 case 'increased':
-                    if (!speedBehaviors.includes('increases speed') && !speedBehaviors.includes('increased speed')) {
+                    if (!losBehaviors.includes('increases speed') && 
+                        !losBehaviors.includes('increased speed') &&
+                        !losBehaviors.includes('increases speed slightly') &&
+                        !losBehaviors.includes('increases speed drastically') &&
+                        !losBehaviors.includes('substantially increased los') &&
+                        !losBehaviors.includes('larger los range')) {
                         return false;
                     }
                     break;
                 case 'decreased':
-                    if (!speedBehaviors.includes('decreases speed') && !speedBehaviors.includes('decreased speed') && !speedBehaviors.includes('reduces speed')) {
+                    if (!losBehaviors.includes('decreased los') && 
+                        !losBehaviors.includes('shorter distance los')) {
                         return false;
                     }
                     break;
@@ -367,16 +380,17 @@ function applyFilters(searchTerm = '') {
                 case 'fast':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('increases speed') || 
-                        behavior.toLowerCase().includes('increased speed')
+                        behavior.toLowerCase().includes('increased speed') ||
+                        behavior.toLowerCase().includes('increases speed slightly') ||
+                        behavior.toLowerCase().includes('increases speed drastically')
                     )) {
                         return false;
                     }
                     break;
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('decreases speed') || 
-                        behavior.toLowerCase().includes('decreased speed') ||
-                        behavior.toLowerCase().includes('reduces speed')
+                        behavior.toLowerCase().includes('decreased los') ||
+                        behavior.toLowerCase().includes('shorter distance los')
                     )) {
                         return false;
                     }
@@ -416,16 +430,21 @@ function applyFilters(searchTerm = '') {
                 case 'high-los':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('increased line of sight') ||
-                        behavior.toLowerCase().includes('larger line of sight') ||
-                        behavior.toLowerCase().includes('substantially increased line of sight')
+                        behavior.toLowerCase().includes('increased los speed') ||
+                        behavior.toLowerCase().includes('substantially increased los') ||
+                        behavior.toLowerCase().includes('larger los range') ||
+                        behavior.toLowerCase().includes('increases speed') ||
+                        behavior.toLowerCase().includes('increased speed') ||
+                        behavior.toLowerCase().includes('increases speed slightly') ||
+                        behavior.toLowerCase().includes('increases speed drastically')
                     )) {
                         return false;
                     }
                     break;
                 case 'weak-holy-water':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('holy water stops hunting') ||
-                        behavior.toLowerCase().includes('less effective holy water')
+                        behavior.toLowerCase().includes('reduces speed during hunt') ||
+                        behavior.toLowerCase().includes('less effective')
                     )) {
                         return false;
                     }
