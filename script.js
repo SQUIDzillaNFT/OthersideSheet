@@ -5,9 +5,7 @@ const ghosts = [
         description: "Known to be a powerful active spirit, with reports that being haunted by one feels like literal suffocation.",
         evidence: ["EMF", "Radiation", "Writing"],
         behaviors: [
-            "Stamina drains faster when targeted",
-            "Normal",
-            "Normal speed"
+            "Stamina drains faster when targeted"
         ],
         category: "aggressive"
     },
@@ -16,9 +14,7 @@ const ghosts = [
         description: "Known for its high pitched screams, electrical interferences, and being close to those who have a close relationship with death.",
         evidence: ["Audio", "Radiation", "EMF"],
         behaviors: [
-            "Player can hear screams from Spirit box or Spirit boom box",
-            "Normal",
-            "Normal speed"
+            "Player can hear screams from Spirit box or Spirit boom box"
         ],
         category: "auditory"
     },
@@ -31,8 +27,7 @@ const ghosts = [
             "Shorter hunt cooldown",
             "Leaves hot temps on touched objects",
             "Increased efficiency",
-            "From the time it is sprayed, it will stop the ghost from hunting for two minutes",
-            "Decreased LOS"
+            "From the time it is sprayed, it will stop the ghost from hunting for two minutes"
         ],
         category: "demonic"
     },
@@ -496,6 +491,30 @@ function renderGhosts() {
     });
 }
 
+// Helper function to identify holy water behaviors
+function getHolyWaterBehaviors(ghost) {
+    const holyWaterKeywords = [
+        'increased efficiency',
+        'holy water stops hunting',
+        'less effective',
+        'from the time it is sprayed'
+    ];
+    
+    return ghost.behaviors.filter(behavior => 
+        holyWaterKeywords.some(keyword => 
+            behavior.toLowerCase().includes(keyword)
+        )
+    );
+}
+
+// Helper function to get non-holy water behaviors
+function getNonHolyWaterBehaviors(ghost) {
+    const holyWaterBehaviors = getHolyWaterBehaviors(ghost);
+    return ghost.behaviors.filter(behavior => 
+        !holyWaterBehaviors.includes(behavior)
+    );
+}
+
 // Create individual ghost card
 function createGhostCard(ghost) {
     const card = document.createElement('div');
@@ -504,6 +523,9 @@ function createGhostCard(ghost) {
     const speedInfo = getSpeedInfo(ghost);
     const losInfo = getLOSInfo(ghost);
     const holyWaterInfo = getHolyWaterInfo(ghost);
+    
+    const holyWaterBehaviors = getHolyWaterBehaviors(ghost);
+    const nonHolyWaterBehaviors = getNonHolyWaterBehaviors(ghost);
     
     card.innerHTML = `
         <div class="ghost-name">${ghost.name}</div>
@@ -521,10 +543,19 @@ function createGhostCard(ghost) {
         
         <div class="behaviors">
             <h4>Unique Behaviors</h4>
-            ${ghost.behaviors.map(behavior => 
+            ${nonHolyWaterBehaviors.map(behavior => 
                 `<div class="behavior-item">${behavior}</div>`
             ).join('')}
         </div>
+        
+        ${holyWaterBehaviors.length > 0 ? `
+        <div class="behaviors">
+            <h4>Holy Water</h4>
+            ${holyWaterBehaviors.map(behavior => 
+                `<div class="behavior-item">${behavior}</div>`
+            ).join('')}
+        </div>
+        ` : ''}
         
         <div class="stats-container">
             <div class="stat-item">
