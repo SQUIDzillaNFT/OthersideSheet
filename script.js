@@ -226,8 +226,14 @@ let filteredGhosts = [...ghosts];
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
-    renderGhosts();
+    console.log('Page loaded, ghosts array length:', ghosts.length);
+    // Ensure "All Ghosts" button is active by default
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
     setupEventListeners();
+    // Force initial render with all ghosts
+    filteredGhosts = [...ghosts];
+    console.log('Initial filteredGhosts length:', filteredGhosts.length);
+    renderGhosts();
 });
 
 // Setup event listeners
@@ -372,85 +378,86 @@ function applyFilters(searchTerm = '') {
             // Check each selected quick filter - ghost must pass ALL selected filters
             for (const filter of quickFilters) {
                 switch (filter) {
-                case 'slow':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('decreased los')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'turns-off-lights':
-                    // Show ghosts that can turn off lights (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns off lights') || 
-                        ghostBehaviors.includes('cant turn on or off lights') ||
-                        ghostBehaviors.includes('Cant turn on or off lights')) {
-                        return false;
-                    }
-                    break;
-                case 'turns-on-lights':
-                    // Show ghosts that can turn on lights (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns on lights') || 
-                        ghostBehaviors.includes('cant turn on or off lights') ||
-                        ghostBehaviors.includes('Cant turn on or off lights') ||
-                        ghostBehaviors.includes('turns off lights only') ||
-                        ghostBehaviors.includes('Turns off lights only.')) {
-                        return false;
-                    }
-                    break;
-                case 'turns-off-radios':
-                    // Show ghosts that can turn off radios (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns off radios') || 
-                        ghostBehaviors.includes('turns on radios, never off') ||
-                        ghostBehaviors.includes('Cant turn on or off radios')) {
-                        return false;
-                    }
-                    break;
-                case 'turns-on-radios':
-                    // Show ghosts that can turn on radios (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns on radios') || 
-                        ghostBehaviors.includes('turns off radios, but never on') ||
-                        ghostBehaviors.includes('Cant turn on or off radios')) {
-                        return false;
-                    }
-                    break;
-                case 'cant-turn-flxpod-off':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('can not turn flxpod off')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'high-los':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('increased line of sight') ||
-                        behavior.toLowerCase().includes('increased los speed') ||
-                        behavior.toLowerCase().includes('substantially increased los') ||
-                        behavior.toLowerCase().includes('larger los range') ||
-                        behavior.toLowerCase().includes('increases speed') ||
-                        behavior.toLowerCase().includes('increased speed') ||
-                        behavior.toLowerCase().includes('increases speed slightly') ||
-                        behavior.toLowerCase().includes('increases speed drastically')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'weak-holy-water':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('increased efficiency') ||
-                        behavior.toLowerCase().includes('holy water stops hunting for two minutes') ||
-                        behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
-                        behavior.toLowerCase().includes('reduces speed during hunt')
-                    )) {
-                        return false;
-                    }
-                    break;
-                case 'less-effective-holy-water':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('less effective')
-                    )) {
-                        return false;
-                    }
-                    break;
+                    case 'slow':
+                        if (!ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('decreased los')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'turns-off-lights':
+                        // Show ghosts that can turn off lights (exclude those that never do)
+                        if (ghostBehaviors.includes('never turns off lights') || 
+                            ghostBehaviors.includes('cant turn on or off lights') ||
+                            ghostBehaviors.includes('Cant turn on or off lights')) {
+                            return false;
+                        }
+                        break;
+                    case 'turns-on-lights':
+                        // Show ghosts that can turn on lights (exclude those that never do)
+                        if (ghostBehaviors.includes('never turns on lights') || 
+                            ghostBehaviors.includes('cant turn on or off lights') ||
+                            ghostBehaviors.includes('Cant turn on or off lights') ||
+                            ghostBehaviors.includes('turns off lights only') ||
+                            ghostBehaviors.includes('Turns off lights only.')) {
+                            return false;
+                        }
+                        break;
+                    case 'turns-off-radios':
+                        // Show ghosts that can turn off radios (exclude those that never do)
+                        if (ghostBehaviors.includes('never turns off radios') || 
+                            ghostBehaviors.includes('turns on radios, never off') ||
+                            ghostBehaviors.includes('Cant turn on or off radios')) {
+                            return false;
+                        }
+                        break;
+                    case 'turns-on-radios':
+                        // Show ghosts that can turn on radios (exclude those that never do)
+                        if (ghostBehaviors.includes('never turns on radios') || 
+                            ghostBehaviors.includes('turns off radios, but never on') ||
+                            ghostBehaviors.includes('Cant turn on or off radios')) {
+                            return false;
+                        }
+                        break;
+                    case 'cant-turn-flxpod-off':
+                        if (!ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('can not turn flxpod off')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'high-los':
+                        if (!ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('increased line of sight') ||
+                            behavior.toLowerCase().includes('increased los speed') ||
+                            behavior.toLowerCase().includes('substantially increased los') ||
+                            behavior.toLowerCase().includes('larger los range') ||
+                            behavior.toLowerCase().includes('increases speed') ||
+                            behavior.toLowerCase().includes('increased speed') ||
+                            behavior.toLowerCase().includes('increases speed slightly') ||
+                            behavior.toLowerCase().includes('increases speed drastically')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'weak-holy-water':
+                        if (!ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('increased efficiency') ||
+                            behavior.toLowerCase().includes('holy water stops hunting for two minutes') ||
+                            behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
+                            behavior.toLowerCase().includes('reduces speed during hunt')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'less-effective-holy-water':
+                        if (!ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('less effective')
+                        )) {
+                            return false;
+                        }
+                        break;
+                }
             }
         }
         
@@ -484,6 +491,10 @@ function toggleEvidenceFilter(evidence, element) {
 function renderGhosts() {
     ghostGrid.innerHTML = '';
     
+    console.log('filteredGhosts length:', filteredGhosts.length);
+    console.log('quickFilters:', quickFilters);
+    console.log('ghosts array length:', ghosts.length);
+    
     if (filteredGhosts.length === 0) {
         ghostGrid.innerHTML = `
             <div class="no-results">
@@ -494,10 +505,13 @@ function renderGhosts() {
         return;
     }
     
+    console.log('About to create cards for', filteredGhosts.length, 'ghosts');
     filteredGhosts.forEach(ghost => {
+        console.log('Creating card for:', ghost.name);
         const card = createGhostCard(ghost);
         ghostGrid.appendChild(card);
     });
+    console.log('Finished creating cards. ghostGrid children:', ghostGrid.children.length);
 }
 
 // Helper function to identify holy water behaviors
