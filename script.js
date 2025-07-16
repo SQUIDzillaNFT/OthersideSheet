@@ -405,7 +405,7 @@ function applyFilters(searchTerm = '') {
                         // Show ghosts that can turn off radios (exclude those that never do)
                         if (ghostBehaviors.includes('never turns off radios') || 
                             ghostBehaviors.includes('turns on radios, never off') ||
-                            ghostBehaviors.includes('Cant turn on or off radios')) {
+                            ghostBehaviors.includes('cant turn on or off radios')) {
                             return false;
                         }
                         break;
@@ -413,7 +413,7 @@ function applyFilters(searchTerm = '') {
                         // Show ghosts that can turn on radios (exclude those that never do)
                         if (ghostBehaviors.includes('never turns on radios') || 
                             ghostBehaviors.includes('turns off radios, but never on') ||
-                            ghostBehaviors.includes('Cant turn on or off radios')) {
+                            ghostBehaviors.includes('cant turn on or off radios')) {
                             return false;
                         }
                         break;
