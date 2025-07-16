@@ -592,7 +592,7 @@ function getSpeedInfo(ghost) {
 function getLOSInfo(ghost) {
     const behaviors = ghost.behaviors.join(' ').toLowerCase();
     
-    if (behaviors.includes('substantially increased line of sight') || behaviors.includes('larger line of sight range')) {
+    if (behaviors.includes('substantially increased line of sight') || behaviors.includes('substantially increased los') || behaviors.includes('larger line of sight range')) {
         return { label: 'Very High', percentage: 100, color: '#8b0000' };
     } else if (behaviors.includes('increases speed drastically')) {
         return { label: 'Very Fast', percentage: 100, color: '#8b0000' };
@@ -601,8 +601,8 @@ function getLOSInfo(ghost) {
     } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
         return { label: 'Fast', percentage: 75, color: '#ff4444' };
     } else if (behaviors.includes('increases speed slightly')) {
-        return { label: 'Slightly Fast', percentage: 60, color: '#ff8c00' };
-    } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los') || behaviors.includes('shorter distance line of sight')) {
+        return { label: 'Moderate', percentage: 60, color: '#ff8c00' };
+    } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los')) {
         return { label: 'Low', percentage: 25, color: '#32cd32' };
     } else if (behaviors.includes('normal line of sight')) {
         return { label: 'Normal', percentage: 50, color: '#ffd700' };
