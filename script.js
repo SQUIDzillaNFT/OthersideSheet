@@ -6,8 +6,8 @@ const ghosts = [
         evidence: ["EMF", "Radiation", "Writing"],
         behaviors: [
             "Stamina drains faster when targeted",
-            "Normal speed during hunts",
-            "Normal line of sight behavior"
+            "Normal",
+            "Normal speed"
         ],
         category: "aggressive"
     },
@@ -17,8 +17,8 @@ const ghosts = [
         evidence: ["Audio", "Radiation", "EMF"],
         behaviors: [
             "Player can hear screams from Spirit box or Spirit boom box",
-            "Normal speed during hunts",
-            "Normal line of sight behavior"
+            "Normal",
+            "Normal speed"
         ],
         category: "auditory"
     },
@@ -104,9 +104,10 @@ const ghosts = [
     {
         name: "Iblis",
         description: "Known to possess abilities like shape-shifting and invisibility, the Iblis is neither good nor evil, but free moral agency. Associated with magic, they are powerful and mysterious beings.",
-        evidence: ["Freezing", "UV", "EMF"],
+        evidence: ["Audio", "Freezing", "Writing"],
         behaviors: [
-            "Less effective",
+            "Shapeshifts during hunts",
+            "Normal",
             "Increases speed slightly"
         ],
         category: "mystical"
