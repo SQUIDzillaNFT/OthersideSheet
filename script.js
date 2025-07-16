@@ -284,14 +284,27 @@ function handleSearch() {
 
 // Toggle quick filter
 function toggleQuickFilter(filter, button) {
-    if (quickFilters.includes(filter)) {
+    if (filter === 'all') {
+        // Clear all filters and activate "All Ghosts"
+        quickFilters = [];
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+    } else if (quickFilters.includes(filter)) {
         // Remove filter
         quickFilters = quickFilters.filter(f => f !== filter);
         button.classList.remove('active');
+        
+        // If no filters are active, activate "All Ghosts"
+        if (quickFilters.length === 0) {
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+        }
     } else {
         // Add filter
         quickFilters.push(filter);
         button.classList.add('active');
+        
+        // Remove active state from "All Ghosts" when other filters are selected
+        document.querySelector('.filter-btn[data-filter="all"]').classList.remove('active');
     }
 }
 
@@ -358,14 +371,12 @@ function applyFilters(searchTerm = '') {
             
             // Check each selected quick filter - ghost must pass ALL selected filters
             for (const filter of quickFilters) {
-                let passesFilter = true;
-                
                 switch (filter) {
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('decreased los')
                     )) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'turns-off-lights':
@@ -373,7 +384,7 @@ function applyFilters(searchTerm = '') {
                     if (ghostBehaviors.includes('never turns off lights') || 
                         ghostBehaviors.includes('cant turn on or off lights') ||
                         ghostBehaviors.includes('Cant turn on or off lights')) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'turns-on-lights':
@@ -383,7 +394,7 @@ function applyFilters(searchTerm = '') {
                         ghostBehaviors.includes('Cant turn on or off lights') ||
                         ghostBehaviors.includes('turns off lights only') ||
                         ghostBehaviors.includes('Turns off lights only.')) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'turns-off-radios':
@@ -391,7 +402,7 @@ function applyFilters(searchTerm = '') {
                     if (ghostBehaviors.includes('never turns off radios') || 
                         ghostBehaviors.includes('turns on radios, never off') ||
                         ghostBehaviors.includes('Cant turn on or off radios')) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'turns-on-radios':
@@ -399,14 +410,14 @@ function applyFilters(searchTerm = '') {
                     if (ghostBehaviors.includes('never turns on radios') || 
                         ghostBehaviors.includes('turns off radios, but never on') ||
                         ghostBehaviors.includes('Cant turn on or off radios')) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'cant-turn-flxpod-off':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('can not turn flxpod off')
                     )) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'high-los':
@@ -420,7 +431,7 @@ function applyFilters(searchTerm = '') {
                         behavior.toLowerCase().includes('increases speed slightly') ||
                         behavior.toLowerCase().includes('increases speed drastically')
                     )) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'weak-holy-water':
@@ -430,21 +441,16 @@ function applyFilters(searchTerm = '') {
                         behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
                         behavior.toLowerCase().includes('reduces speed during hunt')
                     )) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
                 case 'less-effective-holy-water':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('less effective')
                     )) {
-                        passesFilter = false;
+                        return false;
                     }
                     break;
-            }
-            
-            // If this filter failed, the ghost doesn't pass all filters
-            if (!passesFilter) {
-                return false;
             }
         }
         
