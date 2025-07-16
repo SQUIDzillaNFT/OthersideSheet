@@ -509,7 +509,6 @@ function createGhostCard(ghost) {
     const card = document.createElement('div');
     card.className = 'ghost-card';
     
-    const speedInfo = getSpeedInfo(ghost);
     const losInfo = getLOSInfo(ghost);
     const holyWaterInfo = getHolyWaterInfo(ghost);
     
@@ -548,16 +547,9 @@ function createGhostCard(ghost) {
         
         <div class="stats-container">
             <div class="stat-item">
-                <div class="stat-label">Speed: ${speedInfo.label}</div>
-                <div class="stat-bar">
-                    <div class="stat-fill speed-fill" style="width: ${speedInfo.percentage}%; background: ${speedInfo.color}"></div>
-                </div>
-            </div>
-            
-            <div class="stat-item">
                 <div class="stat-label">LOS: ${losInfo.label}</div>
                 <div class="stat-bar">
-                    <div class="stat-fill los-fill" style="width: ${losInfo.percentage}%"></div>
+                    <div class="stat-fill los-fill" style="width: ${losInfo.percentage}%; background: ${losInfo.color}"></div>
                 </div>
             </div>
             
@@ -601,15 +593,21 @@ function getLOSInfo(ghost) {
     const behaviors = ghost.behaviors.join(' ').toLowerCase();
     
     if (behaviors.includes('substantially increased line of sight') || behaviors.includes('larger line of sight range')) {
-        return { label: 'Very High', percentage: 100 };
+        return { label: 'Very High', percentage: 100, color: '#8b0000' };
+    } else if (behaviors.includes('increases speed drastically')) {
+        return { label: 'Very Fast', percentage: 100, color: '#8b0000' };
     } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight') || behaviors.includes('increased los speed')) {
-        return { label: 'High', percentage: 75 };
+        return { label: 'High', percentage: 75, color: '#ff4444' };
+    } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
+        return { label: 'Fast', percentage: 75, color: '#ff4444' };
+    } else if (behaviors.includes('increases speed slightly')) {
+        return { label: 'Slightly Fast', percentage: 60, color: '#ff8c00' };
     } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los') || behaviors.includes('shorter distance line of sight')) {
-        return { label: 'Low', percentage: 25 };
+        return { label: 'Low', percentage: 25, color: '#32cd32' };
     } else if (behaviors.includes('normal line of sight')) {
-        return { label: 'Normal', percentage: 50 };
+        return { label: 'Normal', percentage: 50, color: '#ffd700' };
     } else {
-        return { label: 'Normal', percentage: 50 };
+        return { label: 'Normal', percentage: 50, color: '#ffd700' };
     }
 }
 
