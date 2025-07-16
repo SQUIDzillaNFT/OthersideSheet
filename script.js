@@ -226,13 +226,11 @@ let filteredGhosts = [...ghosts];
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Page loaded, ghosts array length:', ghosts.length);
     // Ensure "All Ghosts" button is active by default
     document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
     setupEventListeners();
     // Force initial render with all ghosts
     filteredGhosts = [...ghosts];
-    console.log('Initial filteredGhosts length:', filteredGhosts.length);
     renderGhosts();
 });
 
@@ -491,10 +489,6 @@ function toggleEvidenceFilter(evidence, element) {
 function renderGhosts() {
     ghostGrid.innerHTML = '';
     
-    console.log('filteredGhosts length:', filteredGhosts.length);
-    console.log('quickFilters:', quickFilters);
-    console.log('ghosts array length:', ghosts.length);
-    
     if (filteredGhosts.length === 0) {
         ghostGrid.innerHTML = `
             <div class="no-results">
@@ -505,13 +499,10 @@ function renderGhosts() {
         return;
     }
     
-    console.log('About to create cards for', filteredGhosts.length, 'ghosts');
     filteredGhosts.forEach(ghost => {
-        console.log('Creating card for:', ghost.name);
         const card = createGhostCard(ghost);
         ghostGrid.appendChild(card);
     });
-    console.log('Finished creating cards. ghostGrid children:', ghostGrid.children.length);
 }
 
 // Helper function to identify holy water behaviors
