@@ -40,7 +40,6 @@ const ghosts = [
             "Unique Spirit Box responses",
             "Increased hunt cooldown",
             "Distressed sounds near player during hunt",
-            "Normal",
             "Increased speed until near target, and then reduces speed to normal LOS"
         ],
         category: "protective"
@@ -64,9 +63,7 @@ const ghosts = [
         evidence: ["Freezing", "Radiation", "Writing"],
         behaviors: [
             "Increased hunt cooldown",
-            "Room the ghost is in gets cold moments before hunting",
-            "Normal",
-            "Normal speed"
+            "Room the ghost is in gets cold moments before hunting"
         ],
         category: "vengeful"
     },
@@ -498,7 +495,8 @@ function getHolyWaterBehaviors(ghost) {
         'increased efficiency',
         'holy water stops hunting',
         'less effective',
-        'from the time it is sprayed'
+        'from the time it is sprayed',
+        'reduces speed during hunt'
     ];
     
     return ghost.behaviors.filter(behavior => 
@@ -589,10 +587,14 @@ function createGhostCard(ghost) {
 function getSpeedInfo(ghost) {
     const behaviors = ghost.behaviors.join(' ').toLowerCase();
     
-    if (behaviors.includes('increases speed drastically')) {
+    if (behaviors.includes('increases speed until near target, and then reduces speed to normal')) {
+        return { label: 'Variable', percentage: 75 };
+    } else if (behaviors.includes('increases speed drastically')) {
         return { label: 'Very Fast', percentage: 100 };
     } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
         return { label: 'Fast', percentage: 75 };
+    } else if (behaviors.includes('reduces speed during hunt')) {
+        return { label: 'Normal', percentage: 50 };
     } else if (behaviors.includes('reduces speed') || behaviors.includes('decreases speed') || behaviors.includes('decreased speed')) {
         return { label: 'Slow', percentage: 25 };
     } else if (behaviors.includes('normal speed') || behaviors.includes('normal line of sight')) {
@@ -608,7 +610,7 @@ function getLOSInfo(ghost) {
     
     if (behaviors.includes('substantially increased line of sight') || behaviors.includes('larger line of sight range')) {
         return { label: 'Very High', percentage: 100 };
-    } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight')) {
+    } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight') || behaviors.includes('increased los speed')) {
         return { label: 'High', percentage: 75 };
     } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los') || behaviors.includes('shorter distance line of sight')) {
         return { label: 'Low', percentage: 25 };
