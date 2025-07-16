@@ -550,7 +550,7 @@ function createGhostCard(ghost) {
             <div class="stat-item">
                 <div class="stat-label">Speed: ${speedInfo.label}</div>
                 <div class="stat-bar">
-                    <div class="stat-fill speed-fill" style="width: ${speedInfo.percentage}%"></div>
+                    <div class="stat-fill speed-fill" style="width: ${speedInfo.percentage}%; background: ${speedInfo.color}"></div>
                 </div>
             </div>
             
@@ -578,19 +578,21 @@ function getSpeedInfo(ghost) {
     const behaviors = ghost.behaviors.join(' ').toLowerCase();
     
     if (behaviors.includes('increases speed until near target, and then reduces speed to normal')) {
-        return { label: 'Variable', percentage: 75 };
+        return { label: 'Variable', percentage: 75, color: '#ff6b35' };
     } else if (behaviors.includes('increases speed drastically')) {
-        return { label: 'Very Fast', percentage: 100 };
+        return { label: 'Very Fast', percentage: 100, color: '#8b0000' };
     } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
-        return { label: 'Fast', percentage: 75 };
+        return { label: 'Fast', percentage: 75, color: '#ff4444' };
+    } else if (behaviors.includes('increases speed slightly')) {
+        return { label: 'Slightly Fast', percentage: 60, color: '#ff8c00' };
     } else if (behaviors.includes('reduces speed during hunt')) {
-        return { label: 'Normal', percentage: 50 };
+        return { label: 'Normal', percentage: 50, color: '#ffd700' };
     } else if (behaviors.includes('reduces speed') || behaviors.includes('decreases speed') || behaviors.includes('decreased speed')) {
-        return { label: 'Slow', percentage: 25 };
+        return { label: 'Slow', percentage: 25, color: '#32cd32' };
     } else if (behaviors.includes('normal speed') || behaviors.includes('normal line of sight')) {
-        return { label: 'Normal', percentage: 50 };
+        return { label: 'Normal', percentage: 50, color: '#ffd700' };
     } else {
-        return { label: 'Normal', percentage: 50 };
+        return { label: 'Normal', percentage: 50, color: '#ffd700' };
     }
 }
 
