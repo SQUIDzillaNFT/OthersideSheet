@@ -264,30 +264,12 @@ function setupEventListeners() {
         checkbox.addEventListener('change', () => {
             const value = checkbox.value;
             
-            // Check if it's a behavior filter
-            const isBehavior = [
-                'turns off lights', 'turns on lights', 'never turns on lights',
-                'never closes doors', 'turns off radios', 'turns on radios',
-                'blows out candles', 'can not turn flxpod off'
-            ].includes(value);
-            
-            if (isBehavior) {
-                if (checkbox.checked) {
-                    if (!selectedBehaviors.includes(value)) {
-                        selectedBehaviors.push(value);
-                    }
-                } else {
-                    selectedBehaviors = selectedBehaviors.filter(b => b !== value);
+            if (checkbox.checked) {
+                if (!selectedEvidence.includes(value)) {
+                    selectedEvidence.push(value);
                 }
             } else {
-                // Evidence filter
-                if (checkbox.checked) {
-                    if (!selectedEvidence.includes(value)) {
-                        selectedEvidence.push(value);
-                    }
-                } else {
-                    selectedEvidence = selectedEvidence.filter(e => e !== value);
-                }
+                selectedEvidence = selectedEvidence.filter(e => e !== value);
             }
             applyFilters();
         });
@@ -328,40 +310,7 @@ function applyFilters(searchTerm = '') {
             }
         }
         
-        // Check behavior filters
-        if (selectedBehaviors.length > 0) {
-            const ghostBehaviors = ghost.behaviors.join(' ').toLowerCase();
-            const hasAllSelectedBehaviors = selectedBehaviors.every(behavior => {
-                switch (behavior) {
-                    case 'turns off lights':
-                        // Show ghosts that can turn off lights (exclude those that never do)
-                        return !ghostBehaviors.includes('never turns off lights');
-                    case 'turns on lights':
-                        // Show ghosts that can turn on lights (exclude those that never do)
-                        return !ghostBehaviors.includes('never turns on lights');
-                    case 'never closes doors':
-                        // Only show ghosts that specifically can't close doors
-                        return ghostBehaviors.includes('never closes doors');
-                    case 'turns off radios':
-                        // Show ghosts that can turn off radios (exclude those that never do)
-                        return !ghostBehaviors.includes('never turns off radios');
-                    case 'turns on radios':
-                        // Show ghosts that can turn on radios (exclude those that never do)
-                        return !ghostBehaviors.includes('never turns on radios');
-                    case 'blows out candles':
-                        // Show ghosts that can blow out candles (exclude those that never do)
-                        return !ghostBehaviors.includes('never blows out candles');
-                    case 'can not turn flxpod off':
-                        // Only show ghosts that specifically can't turn FLXPod off
-                        return ghostBehaviors.includes('can not turn flxpod off');
-                    default:
-                        return ghostBehaviors.includes(behavior.toLowerCase());
-                }
-            });
-            if (!hasAllSelectedBehaviors) {
-                return false;
-            }
-        }
+
         
         // Check LOS filter
         if (selectedSpeed !== 'all') {
@@ -399,6 +348,7 @@ function applyFilters(searchTerm = '') {
         
         // Check quick filter first (separate from other filters)
         if (quickFilter !== 'all') {
+            const ghostBehaviors = ghost.behaviors.join(' ').toLowerCase();
             switch (quickFilter) {
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
@@ -407,11 +357,33 @@ function applyFilters(searchTerm = '') {
                         return false;
                     }
                     break;
-                case 'light-manipulators':
+                case 'turns-off-lights':
+                    // Show ghosts that can turn off lights (exclude those that never do)
+                    if (ghostBehaviors.includes('never turns off lights')) {
+                        return false;
+                    }
+                    break;
+                case 'turns-on-lights':
+                    // Show ghosts that can turn on lights (exclude those that never do)
+                    if (ghostBehaviors.includes('never turns on lights')) {
+                        return false;
+                    }
+                    break;
+                case 'turns-off-radios':
+                    // Show ghosts that can turn off radios (exclude those that never do)
+                    if (ghostBehaviors.includes('never turns off radios')) {
+                        return false;
+                    }
+                    break;
+                case 'turns-on-radios':
+                    // Show ghosts that can turn on radios (exclude those that never do)
+                    if (ghostBehaviors.includes('never turns on radios')) {
+                        return false;
+                    }
+                    break;
+                case 'cant-turn-flxpod-off':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('never turns on lights') ||
-                        behavior.toLowerCase().includes('turns off lights more frequently') ||
-                        behavior.toLowerCase().includes('turns on lights significantly more')
+                        behavior.toLowerCase().includes('can not turn flxpod off')
                     )) {
                         return false;
                     }
