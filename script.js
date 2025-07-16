@@ -100,7 +100,6 @@ const ghosts = [
         evidence: ["Audio", "Freezing", "Writing"],
         behaviors: [
             "Shapeshifts during hunts",
-            "Normal",
             "Increases speed slightly"
         ],
         category: "mystical"
@@ -125,9 +124,7 @@ const ghosts = [
         behaviors: [
             "No manifest events",
             "More shadow events",
-            "Turns off radios, but never on.",
-            "Normal",
-            "Normal speed"
+            "Turns off radios, but never on."
         ],
         category: "shadow"
     },
@@ -137,7 +134,6 @@ const ghosts = [
         evidence: ["UV", "EMF", "Writing"],
         behaviors: [
             "Throws more objects than normal ghosts",
-            "Normal",
             "Increases speed slightly"
         ],
         category: "mischievous"
@@ -150,7 +146,6 @@ const ghosts = [
             "Actively raises heart rate when in the room with the ghost",
             "Shadow events only",
             "Turns on radios, never off",
-            "Normal",
             "Increases speed slightly"
         ],
         category: "undead"
@@ -176,9 +171,7 @@ const ghosts = [
             "Can not turn FLXPod off",
             "Cant interact with main breaker, only individual breakers (except post hunt)",
             "Cant turn on or off lights",
-            "Cant turn on or off radios",
-            "Normal",
-            "Normal speed"
+            "Cant turn on or off radios"
         ],
         category: "residual"
     },
@@ -189,7 +182,6 @@ const ghosts = [
         behaviors: [
             "Can not turn FLXPod off",
             "The hardest ghost to identify with No Evidence.",
-            "Normal",
             "Increases speed slightly"
         ],
         category: "elusive"
@@ -200,9 +192,7 @@ const ghosts = [
         evidence: ["Audio", "Writing", "UV"],
         behaviors: [
             "Returns to favorite room before hunting",
-            "Shorter distance LOS",
-            "Normal",
-            "Normal speed"
+            "Shorter distance LOS"
         ],
         category: "deceptive"
     },
