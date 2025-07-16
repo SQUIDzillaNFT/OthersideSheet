@@ -77,7 +77,7 @@ const ghosts = [
             "Never turns on lights",
             "Will only appear in full form during a hunt",
             "From the time it is sprayed, it will stop the ghost from hunting for 90 seconds",
-            "Increases/decreases with light"
+            "LOS Increases/decreases with light"
         ],
         category: "darkness"
     },
@@ -331,9 +331,33 @@ function applyFilters(searchTerm = '') {
         // Check behavior filters
         if (selectedBehaviors.length > 0) {
             const ghostBehaviors = ghost.behaviors.join(' ').toLowerCase();
-            const hasAllSelectedBehaviors = selectedBehaviors.every(behavior => 
-                ghostBehaviors.includes(behavior.toLowerCase())
-            );
+            const hasAllSelectedBehaviors = selectedBehaviors.every(behavior => {
+                switch (behavior) {
+                    case 'turns off lights':
+                        // Show ghosts that can turn off lights (exclude those that never do)
+                        return !ghostBehaviors.includes('never turns off lights');
+                    case 'turns on lights':
+                        // Show ghosts that can turn on lights (exclude those that never do)
+                        return !ghostBehaviors.includes('never turns on lights');
+                    case 'never closes doors':
+                        // Only show ghosts that specifically can't close doors
+                        return ghostBehaviors.includes('never closes doors');
+                    case 'turns off radios':
+                        // Show ghosts that can turn off radios (exclude those that never do)
+                        return !ghostBehaviors.includes('never turns off radios');
+                    case 'turns on radios':
+                        // Show ghosts that can turn on radios (exclude those that never do)
+                        return !ghostBehaviors.includes('never turns on radios');
+                    case 'blows out candles':
+                        // Show ghosts that can blow out candles (exclude those that never do)
+                        return !ghostBehaviors.includes('never blows out candles');
+                    case 'can not turn flxpod off':
+                        // Only show ghosts that specifically can't turn FLXPod off
+                        return ghostBehaviors.includes('can not turn flxpod off');
+                    default:
+                        return ghostBehaviors.includes(behavior.toLowerCase());
+                }
+            });
             if (!hasAllSelectedBehaviors) {
                 return false;
             }
@@ -385,9 +409,9 @@ function applyFilters(searchTerm = '') {
                     break;
                 case 'light-manipulators':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('turns off lights') ||
-                        behavior.toLowerCase().includes('turns on lights') ||
-                        behavior.toLowerCase().includes('never turns on lights')
+                        behavior.toLowerCase().includes('never turns on lights') ||
+                        behavior.toLowerCase().includes('turns off lights more frequently') ||
+                        behavior.toLowerCase().includes('turns on lights significantly more')
                     )) {
                         return false;
                     }
