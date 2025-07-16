@@ -31,8 +31,8 @@ const ghosts = [
             "Shorter hunt cooldown",
             "Leaves hot temps on touched objects",
             "Increased efficiency",
-            "Holy water stops hunting for two minutes",
-            "Decreased line of sight"
+            "From the time it is sprayed, it will stop the ghost from hunting for two minutes",
+            "Decreased LOS"
         ],
         category: "demonic"
     },
@@ -44,8 +44,8 @@ const ghosts = [
             "Unique Spirit Box responses",
             "Increased hunt cooldown",
             "Distressed sounds near player during hunt",
-            "Increased speed until near target, then reduces to normal",
-            "Normal line of sight"
+            "Normal",
+            "Increased speed until near target, and then reduces speed to normal LOS"
         ],
         category: "protective"
     },
@@ -55,37 +55,36 @@ const ghosts = [
         evidence: ["Audio", "Freezing", "UV"],
         behaviors: [
             "Targets specific player",
-            "Breaks line of sight easily",
+            "Breaks LOS easily",
             "No feet when hunting",
             "Reduces speed during hunt",
-            "Substantially increased line of sight"
+            "Substantially increased LOS"
         ],
         category: "malevolent"
     },
     {
         name: "Bhoot",
-        description: "Unable to find peace in the afterlife, the Bhoot haunt the grounds which they've been wronged seeking revenge.",
+        description: "Unable to find peace in the after life, the Bhoot haunt the grounds which they've been wronged seeking revenge.",
         evidence: ["Freezing", "Radiation", "Writing"],
         behaviors: [
             "Increased hunt cooldown",
             "Room the ghost is in gets cold moments before hunting",
-            "Normal speed during hunts",
-            "Normal line of sight behavior"
+            "Normal",
+            "Normal speed"
         ],
         category: "vengeful"
     },
     {
         name: "Tariaksuq",
-        description: "Representing darkness, death, and the unseen existence, the Tariaksuq lurks often unseen. Favoring the dark, frequent light trippings are reported with these beings.",
+        description: "Representing darkness, death, and the unseen existence, the Tariaksuq lurks often unseen. Factoring the dark, frequent light trippings are reported with these beings.",
         evidence: ["Audio", "EMF", "Freezing"],
         behaviors: [
             "Blows out candles more frequently than other ghosts",
             "Turns off lights more frequently",
             "Never turns on lights",
             "Will only appear in full form during a hunt",
-            "Holy water stops hunting for 90 seconds",
-            "Increases/decreases with light",
-            "Increases speed slightly"
+            "From the time it is sprayed, it will stop the ghost from hunting for 90 seconds",
+            "Increases/decreases with light"
         ],
         category: "darkness"
     },
@@ -97,7 +96,7 @@ const ghosts = [
             "Never closes doors",
             "Never slams doors (except during a hunt)",
             "Can not turn FLXPod off",
-            "Less effective holy water",
+            "Less effective",
             "Increases speed slightly"
         ],
         category: "aggressive"
@@ -105,10 +104,9 @@ const ghosts = [
     {
         name: "Iblis",
         description: "Known to possess abilities like shape-shifting and invisibility, the Iblis is neither good nor evil, but free moral agency. Associated with magic, they are powerful and mysterious beings.",
-        evidence: ["Audio", "Freezing", "Writing"],
+        evidence: ["Freezing", "UV", "EMF"],
         behaviors: [
-            "Shapeshifts during hunts",
-            "Normal line of sight",
+            "Less effective",
             "Increases speed slightly"
         ],
         category: "mystical"
@@ -119,22 +117,22 @@ const ghosts = [
         evidence: ["EMF", "Writing", "Freezing"],
         behaviors: [
             "Shorter cooldown",
-            "Larger line of sight range",
-            "Harder to break line of sight",
-            "Less effective holy water",
+            "Larger LOS range",
+            "Harder to break LOS",
+            "Less effective",
             "Increases speed"
         ],
         category: "violent"
     },
     {
         name: "Phantom",
-        description: "Known to be powerful malevolent beings of darkness, created by darkness itself, Phantoms are hard to see, and keep a low profile until they're ready to strike fear into their target.",
-        evidence: ["Audio", "EMF", "UV"],
+        description: "Known to be powerful malevolent beings of darkness, created by darkness itself. Phantoms are hard to see, and keep a low profile until they're ready to strike fear into their target.",
+        evidence: ["Radiation", "Audio", "UV"],
         behaviors: [
-            "Harder to see",
-            "Can not be seen by night vision",
-            "Can not be seen by FLXPod",
-            "Normal line of sight",
+            "No manifest events",
+            "More shadow events",
+            "Turns off radios, but never on.",
+            "Normal",
             "Normal speed"
         ],
         category: "shadow"
@@ -145,7 +143,7 @@ const ghosts = [
         evidence: ["UV", "EMF", "Writing"],
         behaviors: [
             "Throws more objects than normal ghosts",
-            "Normal line of sight",
+            "Normal",
             "Increases speed slightly"
         ],
         category: "mischievous"
@@ -158,7 +156,7 @@ const ghosts = [
             "Actively raises heart rate when in the room with the ghost",
             "Shadow events only",
             "Turns on radios, never off",
-            "Normal line of sight",
+            "Normal",
             "Increases speed slightly"
         ],
         category: "undead"
@@ -171,7 +169,7 @@ const ghosts = [
             "Turns on lights significantly more than other ghosts",
             "Never turns off lights",
             "Increased efficiency",
-            "Holy water stops hunting for two minutes",
+            "From the time it is sprayed, it will stop the ghost from hunting for two minutes",
             "Increases speed slightly"
         ],
         category: "malevolent"
@@ -181,36 +179,35 @@ const ghosts = [
         description: "A passive, residual spirit that is felt through memory more than presence - quiet, elusive, and hard to track.",
         evidence: ["Radiation", "Freezing", "UV"],
         behaviors: [
-            "Can't interact with main breaker, only individual breakers (except post hunt)",
-            "Can't turn on or off lights",
-            "Can't turn on or off radios",
             "Can not turn FLXPod off",
-            "Normal line of sight",
+            "Cant interact with main breaker, only individual breakers (except post hunt)",
+            "Cant turn on or off lights",
+            "Cant turn on or off radios",
+            "Normal",
             "Normal speed"
         ],
         category: "residual"
     },
     {
         name: "The Forgotten",
-        description: "Delayed messages, and barely interacts. The hardest ghost to identify with No Evidence.",
+        description: "Quiet, passive ghost, known for making rooms very cold, delayed messages, and barley interacts.",
         evidence: ["EMF", "Radiation", "UV"],
         behaviors: [
-            "Delayed messages",
-            "Barely interacts",
-            "Hardest ghost to identify",
             "Can not turn FLXPod off",
-            "Normal line of sight",
+            "The hardest ghost to identify with No Evidence.",
+            "Normal",
             "Increases speed slightly"
         ],
         category: "elusive"
     },
     {
         name: "Doppelganger",
-        description: "A deceptive spirit that takes on the persona of a person, often to trick its intended targets.",
+        description: "A deceptive spirit that takes on the persona of a person, often to trick its intended targets",
         evidence: ["Audio", "Writing", "UV"],
         behaviors: [
             "Returns to favorite room before hunting",
-            "Shorter distance line of sight",
+            "Shorter distance LOS",
+            "Normal",
             "Normal speed"
         ],
         category: "deceptive"
@@ -220,14 +217,11 @@ const ghosts = [
         description: "Historically known for being a vengeful ghost, Gombel is known for being malicious and unforgiving.",
         evidence: ["Radiation", "EMF", "Freezing"],
         behaviors: [
-            "Turns off lights only",
-            "Short cooldown",
-            "Can't interact with main breaker, only individual breakers (except post hunt)",
+            "Turns off lights only.",
+            "Short cooldown.",
+            "Cant interact with main breaker, only individual breakers (except post hunt)",
             "Increased efficiency",
-            "Increases speed drastically",
-            "Player can hear screams from Spirit box or Spirit boom box",
-            "Room the ghost is in gets cold moments before hunting",
-            "Can not turn FLXPod off"
+            "Increases speed drastically"
         ],
         category: "vengeful"
     }
