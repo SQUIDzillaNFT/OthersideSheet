@@ -26,6 +26,7 @@ const ghosts = [
             "Hunts as soon as 90 BPM",
             "Shorter hunt cooldown",
             "Leaves hot temps on touched objects",
+            "Decreased LOS",
             "Increased efficiency",
             "From the time it is sprayed, it will stop the ghost from hunting for two minutes"
         ],
@@ -609,7 +610,7 @@ function getLOSInfo(ghost) {
         return { label: 'Very High', percentage: 100 };
     } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight')) {
         return { label: 'High', percentage: 75 };
-    } else if (behaviors.includes('decreased line of sight') || behaviors.includes('shorter distance line of sight')) {
+    } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los') || behaviors.includes('shorter distance line of sight')) {
         return { label: 'Low', percentage: 25 };
     } else if (behaviors.includes('normal line of sight')) {
         return { label: 'Normal', percentage: 50 };
