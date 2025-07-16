@@ -377,16 +377,6 @@ function applyFilters(searchTerm = '') {
         // Check quick filter first (separate from other filters)
         if (quickFilter !== 'all') {
             switch (quickFilter) {
-                case 'fast':
-                    if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('increases speed') || 
-                        behavior.toLowerCase().includes('increased speed') ||
-                        behavior.toLowerCase().includes('increases speed slightly') ||
-                        behavior.toLowerCase().includes('increases speed drastically')
-                    )) {
-                        return false;
-                    }
-                    break;
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('decreased los') ||
@@ -617,10 +607,10 @@ function getLOSInfo(ghost) {
         return { label: 'Very Fast', percentage: 100, color: '#8b0000' };
     } else if (behaviors.includes('increased line of sight') || behaviors.includes('increases line of sight') || behaviors.includes('increased los speed')) {
         return { label: 'High', percentage: 75, color: '#ff4444' };
-    } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
-        return { label: 'Fast', percentage: 75, color: '#ff4444' };
     } else if (behaviors.includes('increases speed slightly')) {
         return { label: 'Moderate', percentage: 60, color: '#ff8c00' };
+    } else if (behaviors.includes('increases speed') || behaviors.includes('increased speed')) {
+        return { label: 'Fast', percentage: 75, color: '#ff4444' };
     } else if (behaviors.includes('decreased line of sight') || behaviors.includes('decreased los')) {
         return { label: 'Low', percentage: 25, color: '#32cd32' };
     } else if (behaviors.includes('normal line of sight')) {
@@ -636,9 +626,9 @@ function getHolyWaterInfo(ghost) {
     
     if (behaviors.includes('increased efficiency') || behaviors.includes('holy water stops hunting for two minutes')) {
         return { label: 'Very Effective', percentage: 100, color: '#4ecdc4' };
-    } else if (behaviors.includes('holy water stops hunting for 90 seconds')) {
+    } else if (behaviors.includes('holy water stops hunting for 90 seconds') || behaviors.includes('reduces speed during hunt')) {
         return { label: 'Effective', percentage: 75, color: '#45b7d1' };
-    } else if (behaviors.includes('less effective') || behaviors.includes('reduces speed during hunt')) {
+    } else if (behaviors.includes('less effective')) {
         return { label: 'Less Effective', percentage: 25, color: '#ff6b6b' };
     } else if (behaviors.includes('normal')) {
         return { label: 'Normal', percentage: 50, color: '#a0a0a0' };
