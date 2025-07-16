@@ -359,25 +359,30 @@ function applyFilters(searchTerm = '') {
                     break;
                 case 'turns-off-lights':
                     // Show ghosts that can turn off lights (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns off lights')) {
+                    if (ghostBehaviors.includes('never turns off lights') || 
+                        ghostBehaviors.includes('cant turn on or off lights')) {
                         return false;
                     }
                     break;
                 case 'turns-on-lights':
                     // Show ghosts that can turn on lights (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns on lights')) {
+                    if (ghostBehaviors.includes('never turns on lights') || 
+                        ghostBehaviors.includes('cant turn on or off lights') ||
+                        ghostBehaviors.includes('turns off lights only')) {
                         return false;
                     }
                     break;
                 case 'turns-off-radios':
                     // Show ghosts that can turn off radios (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns off radios')) {
+                    if (ghostBehaviors.includes('never turns off radios') || 
+                        ghostBehaviors.includes('turns on radios, never off')) {
                         return false;
                     }
                     break;
                 case 'turns-on-radios':
                     // Show ghosts that can turn on radios (exclude those that never do)
-                    if (ghostBehaviors.includes('never turns on radios')) {
+                    if (ghostBehaviors.includes('never turns on radios') || 
+                        ghostBehaviors.includes('turns off radios, but never on')) {
                         return false;
                     }
                     break;
@@ -404,8 +409,10 @@ function applyFilters(searchTerm = '') {
                     break;
                 case 'weak-holy-water':
                     if (!ghost.behaviors.some(behavior => 
-                        behavior.toLowerCase().includes('reduces speed during hunt') ||
-                        behavior.toLowerCase().includes('less effective')
+                        behavior.toLowerCase().includes('increased efficiency') ||
+                        behavior.toLowerCase().includes('holy water stops hunting for two minutes') ||
+                        behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
+                        behavior.toLowerCase().includes('reduces speed during hunt')
                     )) {
                         return false;
                     }
