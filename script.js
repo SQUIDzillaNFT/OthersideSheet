@@ -2,7 +2,7 @@
 const ghosts = [
     {
         name: "Revenant",
-        description: "Known to be a powerful active spirit, with reports that being haunted by one feels like literal suffocation. Stamina drains faster when targeted.",
+        description: "Known to be a powerful active spirit, with reports that being haunted by one feels like literal suffocation.",
         evidence: ["EMF", "Radiation", "Writing"],
         behaviors: [
             "Stamina drains faster when targeted",
