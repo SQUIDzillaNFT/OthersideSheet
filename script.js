@@ -218,7 +218,7 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Current filter state
 let currentFilter = 'all';
-let quickFilter = 'all';
+let quickFilters = [];
 let selectedSpeed = 'all';
 let selectedEvidence = [];
 let selectedBehaviors = [];
@@ -238,7 +238,7 @@ function setupEventListeners() {
     document.querySelectorAll('.filter-btn').forEach(button => {
         button.addEventListener('click', () => {
             const filter = button.dataset.filter;
-            setQuickFilter(filter);
+            toggleQuickFilter(filter, button);
             applyFilters();
         });
     });
@@ -282,11 +282,17 @@ function handleSearch() {
     applyFilters(searchTerm);
 }
 
-// Set quick filter
-function setQuickFilter(filter) {
-    quickFilter = filter;
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+// Toggle quick filter
+function toggleQuickFilter(filter, button) {
+    if (quickFilters.includes(filter)) {
+        // Remove filter
+        quickFilters = quickFilters.filter(f => f !== filter);
+        button.classList.remove('active');
+    } else {
+        // Add filter
+        quickFilters.push(filter);
+        button.classList.add('active');
+    }
 }
 
 // Apply filters and search
@@ -346,51 +352,61 @@ function applyFilters(searchTerm = '') {
             }
         }
         
-        // Check quick filter first (separate from other filters)
-        if (quickFilter !== 'all') {
+        // Check quick filters (separate from other filters)
+        if (quickFilters.length > 0) {
             const ghostBehaviors = ghost.behaviors.join(' ').toLowerCase();
-            switch (quickFilter) {
+            
+            // Check each selected quick filter - ghost must pass ALL selected filters
+            for (const filter of quickFilters) {
+                let passesFilter = true;
+                
+                switch (filter) {
                 case 'slow':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('decreased los')
                     )) {
-                        return false;
+                        passesFilter = false;
                     }
                     break;
                 case 'turns-off-lights':
                     // Show ghosts that can turn off lights (exclude those that never do)
                     if (ghostBehaviors.includes('never turns off lights') || 
-                        ghostBehaviors.includes('cant turn on or off lights')) {
-                        return false;
+                        ghostBehaviors.includes('cant turn on or off lights') ||
+                        ghostBehaviors.includes('Cant turn on or off lights')) {
+                        passesFilter = false;
                     }
                     break;
                 case 'turns-on-lights':
                     // Show ghosts that can turn on lights (exclude those that never do)
                     if (ghostBehaviors.includes('never turns on lights') || 
                         ghostBehaviors.includes('cant turn on or off lights') ||
-                        ghostBehaviors.includes('turns off lights only')) {
-                        return false;
+                        ghostBehaviors.includes('Cant turn on or off lights') ||
+                        ghostBehaviors.includes('turns off lights only') ||
+                        ghostBehaviors.includes('Turns off lights only.')) {
+                        passesFilter = false;
                     }
                     break;
                 case 'turns-off-radios':
                     // Show ghosts that can turn off radios (exclude those that never do)
                     if (ghostBehaviors.includes('never turns off radios') || 
-                        ghostBehaviors.includes('turns on radios, never off')) {
-                        return false;
+                        ghostBehaviors.includes('turns on radios, never off') ||
+                        ghostBehaviors.includes('Cant turn on or off radios')) {
+                        passesFilter = false;
                     }
                     break;
                 case 'turns-on-radios':
                     // Show ghosts that can turn on radios (exclude those that never do)
                     if (ghostBehaviors.includes('never turns on radios') || 
-                        ghostBehaviors.includes('turns off radios, but never on')) {
-                        return false;
+                        ghostBehaviors.includes('turns off radios, but never on') ||
+                        ghostBehaviors.includes('Cant turn on or off radios')) {
+                        passesFilter = false;
                     }
                     break;
                 case 'cant-turn-flxpod-off':
                     if (!ghost.behaviors.some(behavior => 
                         behavior.toLowerCase().includes('can not turn flxpod off')
                     )) {
-                        return false;
+                        passesFilter = false;
                     }
                     break;
                 case 'high-los':
@@ -404,7 +420,7 @@ function applyFilters(searchTerm = '') {
                         behavior.toLowerCase().includes('increases speed slightly') ||
                         behavior.toLowerCase().includes('increases speed drastically')
                     )) {
-                        return false;
+                        passesFilter = false;
                     }
                     break;
                 case 'weak-holy-water':
@@ -414,9 +430,21 @@ function applyFilters(searchTerm = '') {
                         behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
                         behavior.toLowerCase().includes('reduces speed during hunt')
                     )) {
-                        return false;
+                        passesFilter = false;
                     }
                     break;
+                case 'less-effective-holy-water':
+                    if (!ghost.behaviors.some(behavior => 
+                        behavior.toLowerCase().includes('less effective')
+                    )) {
+                        passesFilter = false;
+                    }
+                    break;
+            }
+            
+            // If this filter failed, the ghost doesn't pass all filters
+            if (!passesFilter) {
+                return false;
             }
         }
         
