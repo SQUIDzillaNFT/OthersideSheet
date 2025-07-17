@@ -297,6 +297,28 @@ header h1::before {
     box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
 }
 
+.clear-filters-btn {
+    width: 100%;
+    padding: 12px 24px;
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.clear-filters-btn:hover {
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.2);
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+}
+
 .ghost-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

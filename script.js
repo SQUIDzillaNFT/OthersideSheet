@@ -278,12 +278,40 @@ function setupEventListeners() {
             applyFilters();
         });
     });
+    
+    // Add clear filters button listener
+    document.getElementById('clearFiltersBtn').addEventListener('click', clearAllFilters);
 }
 
 // Handle search functionality
 function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase();
     applyFilters(searchTerm);
+}
+
+// Clear all filters and reset to default state
+function clearAllFilters() {
+    // Clear search
+    searchInput.value = '';
+    
+    // Reset LOS filter to "All LOS"
+    selectedSpeed = 'all';
+    document.querySelector('input[name="speed"][value="all"]').checked = true;
+    
+    // Clear evidence filters
+    selectedEvidence = [];
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Clear quick filters and activate "All Ghosts"
+    quickFilters = [];
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+    
+    // Reset filtered ghosts to show all
+    filteredGhosts = [...ghosts];
+    renderGhosts();
 }
 
 // Toggle quick filter
