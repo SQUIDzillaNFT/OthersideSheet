@@ -281,6 +281,9 @@ function setupEventListeners() {
     
     // Add clear filters button listener
     document.getElementById('clearFiltersBtn').addEventListener('click', clearAllFilters);
+    
+    // Add evidence reset button listener
+    document.getElementById('resetEvidenceBtn').addEventListener('click', resetEvidenceFilters);
 }
 
 // Handle search functionality
@@ -312,6 +315,22 @@ function clearAllFilters() {
     // Reset filtered ghosts to show all
     filteredGhosts = [...ghosts];
     renderGhosts();
+}
+
+// Reset only LOS filter to "All LOS"
+function resetLOSFilter() {
+    selectedSpeed = 'all';
+    document.querySelector('input[name="speed"][value="all"]').checked = true;
+    applyFilters();
+}
+
+// Reset only evidence filters
+function resetEvidenceFilters() {
+    selectedEvidence = [];
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    applyFilters();
 }
 
 // Toggle quick filter
