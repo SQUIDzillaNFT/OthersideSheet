@@ -464,6 +464,12 @@ function applyFilters(searchTerm = '') {
                             return false;
                         }
                         break;
+                    case 'closes-doors':
+                        // Show ghosts that can close doors (exclude those that never do)
+                        if (ghostBehaviors.includes('never closes doors')) {
+                            return false;
+                        }
+                        break;
                     case 'cant-turn-flxpod-off':
                         if (!ghost.behaviors.some(behavior => 
                             behavior.toLowerCase().includes('can not turn flxpod off')
