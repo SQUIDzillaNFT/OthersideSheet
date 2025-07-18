@@ -637,6 +637,7 @@ function createGhostCard(ghost) {
                 <div class="stat-bar">
                     <div class="stat-fill holy-water-fill" style="width: ${holyWaterInfo.percentage}%; background: ${holyWaterInfo.color}"></div>
                 </div>
+                <div class="stat-note">${holyWaterInfo.note}</div>
             </div>
         </div>
     `;
@@ -695,15 +696,40 @@ function getHolyWaterInfo(ghost) {
     const behaviors = ghost.behaviors.join(' ').toLowerCase();
     
     if (behaviors.includes('increased efficiency') || behaviors.includes('holy water stops hunting for two minutes')) {
-        return { label: 'Very Effective', percentage: 100, color: '#4ecdc4' };
+        return { 
+            label: 'Very Effective', 
+            percentage: 100, 
+            color: '#4ecdc4',
+            note: '8 seconds disorientated'
+        };
     } else if (behaviors.includes('holy water stops hunting for 90 seconds') || behaviors.includes('reduces speed during hunt')) {
-        return { label: 'Effective', percentage: 75, color: '#45b7d1' };
+        return { 
+            label: 'Effective', 
+            percentage: 75, 
+            color: '#45b7d1',
+            note: '5 seconds disorientated'
+        };
     } else if (behaviors.includes('less effective')) {
-        return { label: 'Less Effective', percentage: 25, color: '#ff6b6b' };
+        return { 
+            label: 'Less Effective', 
+            percentage: 25, 
+            color: '#ff6b6b',
+            note: '3 seconds disorientated'
+        };
     } else if (behaviors.includes('normal')) {
-        return { label: 'Normal', percentage: 50, color: '#a0a0a0' };
+        return { 
+            label: 'Normal', 
+            percentage: 50, 
+            color: '#a0a0a0',
+            note: '5 seconds disorientated'
+        };
     } else {
-        return { label: 'Normal', percentage: 50, color: '#a0a0a0' };
+        return { 
+            label: 'Normal', 
+            percentage: 50, 
+            color: '#a0a0a0',
+            note: '5 seconds disorientated'
+        };
     }
 }
 
