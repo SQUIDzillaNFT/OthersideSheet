@@ -97,7 +97,6 @@ const ghosts = [
         behaviors: [
             "Never closes doors",
             "Never slams doors (except during a hunt)",
-            "Can not turn FLXPod off",
             "Less effective",
             "Increases speed slightly",
             "Cannot interact with FLX-POD"
@@ -187,7 +186,6 @@ const ghosts = [
         description: "A passive, residual spirit that is felt through memory more than presence - quiet, elusive, and hard to track.",
         evidence: ["Radiation", "Freezing", "UV"],
         behaviors: [
-            "Can not turn FLXPod off",
             "Cant interact with main breaker, only individual breakers (except post hunt)",
             "Cant turn on or off lights",
             "Cant turn on or off radios",
@@ -201,7 +199,6 @@ const ghosts = [
         description: "Quiet, passive ghost, known for making rooms very cold, delayed messages, and barley interacts.",
         evidence: ["EMF", "Radiation", "UV"],
         behaviors: [
-            "Can not turn FLXPod off",
             "The hardest ghost to identify with No Evidence.",
             "Increases speed slightly",
             "Cannot interact with FLX-POD"
@@ -496,7 +493,7 @@ function applyFilters(searchTerm = '') {
                         break;
                     case 'cant-turn-flxpod-off':
                         if (!ghost.behaviors.some(behavior => 
-                            behavior.toLowerCase().includes('can not turn flxpod off')
+                            behavior.toLowerCase().includes('cannot interact with flx-pod')
                         )) {
                             return false;
                         }
@@ -548,6 +545,13 @@ function applyFilters(searchTerm = '') {
                         break;
                     case 'can-interact-flxpod':
                         if (ghost.behaviors.some(behavior =>
+                            behavior.toLowerCase().includes('cannot interact with flx-pod')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'cant-interact-flxpod':
+                        if (!ghost.behaviors.some(behavior =>
                             behavior.toLowerCase().includes('cannot interact with flx-pod')
                         )) {
                             return false;
