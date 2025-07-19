@@ -5,7 +5,8 @@ const ghosts = [
         description: "Known to be a powerful active spirit, with reports that being haunted by one feels like literal suffocation.",
         evidence: ["EMF", "Radiation", "Writing"],
         behaviors: [
-            "Stamina drains faster when targeted"
+            "Stamina drains faster when targeted",
+            "Can light candles"
         ],
         category: "aggressive"
     },
@@ -14,7 +15,8 @@ const ghosts = [
         description: "Known for its high pitched screams, electrical interferences, and being close to those who have a close relationship with death.",
         evidence: ["Audio", "Radiation", "EMF"],
         behaviors: [
-            "Player can hear screams from Spirit box or Spirit boom box"
+            "Player can hear screams from Spirit box or Spirit boom box",
+            "Can extinguish candles"
         ],
         category: "auditory"
     },
@@ -28,7 +30,9 @@ const ghosts = [
             "Leaves hot temps on touched objects",
             "Decreased LOS",
             "Increased efficiency",
-            "From the time it is sprayed, it will stop the ghost from hunting for two minutes"
+            "From the time it is sprayed, it will stop the ghost from hunting for two minutes",
+            "Can extinguish candles",
+            "Can light candles"
         ],
         category: "demonic"
     },
@@ -40,7 +44,9 @@ const ghosts = [
             "Unique Spirit Box responses",
             "Increased hunt cooldown",
             "Distressed sounds near player during hunt",
-            "Increased speed until near target, and then reduces speed to normal LOS"
+            "Increased speed until near target, and then reduces speed to normal LOS",
+            "Can light candles",
+            "Cannot interact with FLX-POD"
         ],
         category: "protective"
     },
@@ -53,7 +59,8 @@ const ghosts = [
             "Breaks LOS easily",
             "No feet when hunting",
             "Reduces speed during hunt",
-            "Substantially increased LOS"
+            "Substantially increased LOS",
+            "Can extinguish candles"
         ],
         category: "malevolent"
     },
@@ -63,7 +70,8 @@ const ghosts = [
         evidence: ["Freezing", "Radiation", "Writing"],
         behaviors: [
             "Increased hunt cooldown",
-            "Room the ghost is in gets cold moments before hunting"
+            "Room the ghost is in gets cold moments before hunting",
+            "Can extinguish candles"
         ],
         category: "vengeful"
     },
@@ -72,7 +80,8 @@ const ghosts = [
         description: "Representing darkness, death, and the unseen existence, the Tariaksuq lurks often unseen. Factoring the dark, frequent light trippings are reported with these beings.",
         evidence: ["Audio", "EMF", "Freezing"],
         behaviors: [
-            "Blows out candles more frequently than other ghosts",
+            "Blows out multiple candles in the vicinity at once (with chance)",
+            "Can extinguish candles",
             "Turns off lights more frequently",
             "Never turns on lights",
             "Will only appear in full form during a hunt",
@@ -90,7 +99,8 @@ const ghosts = [
             "Never slams doors (except during a hunt)",
             "Can not turn FLXPod off",
             "Less effective",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Cannot interact with FLX-POD"
         ],
         category: "aggressive"
     },
@@ -100,7 +110,9 @@ const ghosts = [
         evidence: ["Audio", "Freezing", "Writing"],
         behaviors: [
             "Shapeshifts during hunts",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Can extinguish candles",
+            "Can light candles"
         ],
         category: "mystical"
     },
@@ -113,7 +125,8 @@ const ghosts = [
             "Larger LOS range",
             "Harder to break LOS",
             "Less effective",
-            "Increases speed"
+            "Increases speed",
+            "Can extinguish candles"
         ],
         category: "violent"
     },
@@ -124,7 +137,9 @@ const ghosts = [
         behaviors: [
             "No manifest events",
             "More shadow events",
-            "Turns off radios, but never on."
+            "Turns off radios, but never on.",
+            "Can extinguish candles",
+            "Cannot interact with FLX-POD"
         ],
         category: "shadow"
     },
@@ -134,7 +149,9 @@ const ghosts = [
         evidence: ["UV", "EMF", "Writing"],
         behaviors: [
             "Throws more objects than normal ghosts",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Can extinguish candles",
+            "Can light candles"
         ],
         category: "mischievous"
     },
@@ -146,7 +163,8 @@ const ghosts = [
             "Actively raises heart rate when in the room with the ghost",
             "Shadow events only",
             "Turns on radios, never off",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Can light candles"
         ],
         category: "undead"
     },
@@ -159,7 +177,8 @@ const ghosts = [
             "Never turns off lights",
             "Increased efficiency",
             "From the time it is sprayed, it will stop the ghost from hunting for two minutes",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Can light candles"
         ],
         category: "malevolent"
     },
@@ -171,7 +190,9 @@ const ghosts = [
             "Can not turn FLXPod off",
             "Cant interact with main breaker, only individual breakers (except post hunt)",
             "Cant turn on or off lights",
-            "Cant turn on or off radios"
+            "Cant turn on or off radios",
+            "Can extinguish candles",
+            "Cannot interact with FLX-POD"
         ],
         category: "residual"
     },
@@ -182,7 +203,8 @@ const ghosts = [
         behaviors: [
             "Can not turn FLXPod off",
             "The hardest ghost to identify with No Evidence.",
-            "Increases speed slightly"
+            "Increases speed slightly",
+            "Cannot interact with FLX-POD"
         ],
         category: "elusive"
     },
@@ -192,7 +214,8 @@ const ghosts = [
         evidence: ["Audio", "Writing", "UV"],
         behaviors: [
             "Returns to favorite room before hunting",
-            "Shorter distance LOS"
+            "Shorter distance LOS",
+            "Can light candles"
         ],
         category: "deceptive"
     },
@@ -205,7 +228,8 @@ const ghosts = [
             "Short cooldown.",
             "Cant interact with main breaker, only individual breakers (except post hunt)",
             "Increased efficiency",
-            "Increases speed drastically"
+            "Increases speed drastically",
+            "Can extinguish candles"
         ],
         category: "vengeful"
     }
@@ -504,6 +528,27 @@ function applyFilters(searchTerm = '') {
                     case 'less-effective-holy-water':
                         if (!ghost.behaviors.some(behavior => 
                             behavior.toLowerCase().includes('less effective')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'can-light-candles':
+                        if (!ghost.behaviors.some(behavior =>
+                            behavior.toLowerCase().includes('can light candles')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'can-extinguish-candles':
+                        if (!ghost.behaviors.some(behavior =>
+                            behavior.toLowerCase().includes('can extinguish candles')
+                        )) {
+                            return false;
+                        }
+                        break;
+                    case 'can-interact-flxpod':
+                        if (ghost.behaviors.some(behavior =>
+                            behavior.toLowerCase().includes('cannot interact with flx-pod')
                         )) {
                             return false;
                         }
