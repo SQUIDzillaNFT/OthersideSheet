@@ -557,6 +557,19 @@ function applyFilters(searchTerm = '') {
                             return false;
                         }
                         break;
+                    case 'normal-holy-water':
+                        // Show ghosts with normal holy water effectiveness (5 seconds)
+                        // Exclude those with special holy water behaviors
+                        if (ghost.behaviors.some(behavior => 
+                            behavior.toLowerCase().includes('increased efficiency') ||
+                            behavior.toLowerCase().includes('less effective') ||
+                            behavior.toLowerCase().includes('holy water stops hunting for two minutes') ||
+                            behavior.toLowerCase().includes('holy water stops hunting for 90 seconds') ||
+                            behavior.toLowerCase().includes('reduces speed during hunt')
+                        )) {
+                            return false;
+                        }
+                        break;
                 }
             }
         }
